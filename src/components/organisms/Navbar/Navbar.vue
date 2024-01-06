@@ -1,15 +1,23 @@
 <template>
   <div class="nav">
     <div class="nav__left">
-      <h2>TheMovieCentral</h2>
+      <a href="/">TheMovieCentral</a>
     </div>
     <div class="nav__links">
       <ul>
-        <li>Home</li>
-        <li>Discover</li>
-        <li>Movie Release</li>
-        <li>Forum</li>
-        <li>Your Favourite</li>
+        <li>
+          <a href="/home" title="Home">Home</a>
+        </li>
+        <li>
+          <a href="Discover" title="Discover">Discover</a>
+        </li>
+        <li><a href="Movie Release" title="Movie Release">Movie Release</a></li>
+        <li>
+          <a href="Forum" title="Forum">Forum</a>
+        </li>
+        <li>
+          <a href="Your Favourite" title="Your Favourite">Your Favourite</a>
+        </li>
       </ul>
     </div>
     <div class="nav__right">
@@ -34,19 +42,19 @@ export default {};
 
 <style lang="scss">
 .nav {
-  font-family: Rubik;
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 36px 75px;
 
   &__left {
-    h2 {
+    a {
       font-feature-settings: "clig" off, "liga" off;
       font-size: 32px;
       font-style: normal;
       font-weight: 600;
       line-height: 40px;
+      cursor: pointer;
     }
   }
 
@@ -57,10 +65,26 @@ export default {};
       align-items: center;
 
       li {
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 24px;
+        a {
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 24px;
+
+          &::before {
+            display: block;
+            content: attr(title);
+            font-weight: bold;
+            height: 0;
+            overflow: hidden;
+            visibility: hidden;
+          }
+
+          &:hover {
+            cursor: pointer;
+            font-weight: bold;
+          }
+        }
       }
     }
   }

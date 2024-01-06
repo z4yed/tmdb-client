@@ -47,11 +47,11 @@ export default {
   &:hover {
     background: $color-green;
     cursor: pointer;
+    border: 1px solid transparent;
   }
 
   span {
     color: $color-white-solid;
-    font-family: Rubik;
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
