@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Navbar />
+    <Header />
   </div>
-  <div class="components">
+  <!-- <div class="components">
     <div class="buttons">
       <Button text="Play Now" imageSource="play.png" />
       <Button text="Watch Trailer" imageSource="play.png" />
@@ -31,14 +31,13 @@
     </div>
     <div>
       <Footer />
-    </div>
-  </div>
+    </div> -->
+  <!-- </div> -->
 </template>
 
 <script>
 import { Button, MovieGenre } from "@/components/molecules";
 import {
-  Navbar,
   PopularMovie,
   Ratings,
   MovieCard,
@@ -46,10 +45,13 @@ import {
   Footer,
 } from "@/components/organisms";
 
+import { Header } from "@/components/templates";
+
 export default {
   components: {
+    Header,
+
     Button,
-    Navbar,
     PopularMovie,
     MovieGenre,
     Ratings,
@@ -67,7 +69,6 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
 
 body {
-  background: $color-black-solid;
   color: $color-white-solid;
 }
 

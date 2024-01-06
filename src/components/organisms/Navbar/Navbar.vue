@@ -46,6 +46,12 @@ export default {};
   justify-content: space-around;
   align-items: center;
   padding: 36px 75px;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
 
   &__left {
     a {
