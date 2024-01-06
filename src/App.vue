@@ -16,12 +16,25 @@
     <div>
       <PopularMovie />
     </div>
+
+    <div>
+      <MovieCard />
+    </div>
+
+    <div class="else">
+      <MovieCard :isCompact="true" :key="2" />
+    </div>
   </div>
 </template>
 
 <script>
 import { Button, MovieGenre } from "@/components/molecules";
-import { Navbar, PopularMovie, Ratings } from "@/components/organisms";
+import {
+  Navbar,
+  PopularMovie,
+  Ratings,
+  MovieCard,
+} from "@/components/organisms";
 
 export default {
   components: {
@@ -30,6 +43,7 @@ export default {
     PopularMovie,
     MovieGenre,
     Ratings,
+    MovieCard,
   },
   setup() {
     return {};
