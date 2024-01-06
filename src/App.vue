@@ -29,6 +29,9 @@
       <Cast />
       <Cast />
     </div>
+    <div>
+      <Footer />
+    </div>
   </div>
 </template>
 
@@ -40,6 +43,7 @@ import {
   Ratings,
   MovieCard,
   Cast,
+  Footer,
 } from "@/components/organisms";
 
 export default {
@@ -51,6 +55,7 @@ export default {
     Ratings,
     MovieCard,
     Cast,
+    Footer,
   },
   setup() {
     return {};
