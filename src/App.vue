@@ -1,6 +1,7 @@
 <template>
-  <h1>TMDB Client by Zayed Hassan</h1>
-
+  <div>
+    <Navbar />
+  </div>
   <div>
     <Button text="Play Now" imageSource="play.png" />
     <Button text="Watch Trailer" imageSource="play.png" />
@@ -14,10 +15,12 @@
 
 <script>
 import { Button } from "@/components/molecules";
+import { Navbar } from "@/components/organisms";
 
 export default {
   components: {
     Button,
+    Navbar,
   },
   setup() {
     return {
@@ -32,6 +35,6 @@ export default {
 
 body {
   background: $color-black-solid;
-  color: white;
+  color: $color-white-solid;
 }
 </style>
