@@ -24,6 +24,11 @@
     <div class="else">
       <MovieCard :isCompact="true" :key="2" />
     </div>
+    <div>
+      <Cast />
+      <Cast />
+      <Cast />
+    </div>
   </div>
 </template>
 
@@ -34,6 +39,7 @@ import {
   PopularMovie,
   Ratings,
   MovieCard,
+  Cast,
 } from "@/components/organisms";
 
 export default {
@@ -44,6 +50,7 @@ export default {
     MovieGenre,
     Ratings,
     MovieCard,
+    Cast,
   },
   setup() {
     return {};
