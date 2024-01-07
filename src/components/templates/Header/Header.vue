@@ -58,10 +58,11 @@ export default {
 <style lang="scss">
 .header {
   position: relative;
+  min-height: 648px;
 }
 
 .wrapper {
-  min-height: 648px;
+  min-height: 100%;
   position: absolute;
   left: 0;
   top: 0;
