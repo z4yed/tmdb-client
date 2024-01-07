@@ -7,7 +7,7 @@
         class="hero__background-img"
       />
     </div>
-    <div class="hero__description">
+    <div class="hero__description" v-if="!isDetailsPage">
       <div class="hero__description-season">
         <span>Season 3</span>
       </div>
@@ -33,21 +33,78 @@
       </div>
     </div>
 
-    <div class="hero__overlay"></div>
+    <div class="hero__description" v-if="isDetailsPage">
+      <div class="hero__description-season">
+        <span>Season 3</span>
+      </div>
+      <div class="hero__description-title">
+        <h2>The Last of Us</h2>
+      </div>
+      <div class="hero__description-others">
+        <span>2h40m • 2022 • Fantasy • Actions</span>
+      </div>
+      <div class="hero__description-actions" v-if="!isDetailsPage">
+        <Button imageSource="play.png" text="Play Now" />
+        <Button imageSource="play.png" text="Watch Trailer" />
+        <Button imageSource="bookmark.png" text="Add Watchlist" />
+      </div>
+
+      <div class="hero__description-actions__details" v-if="isDetailsPage">
+        <div>
+          <Button imageSource="play.png" text="Continue Watching" />
+          <Button imageSource="bookmark.png" text="Add Watchlist" />
+        </div>
+        <div>
+          <Button imageSource="download.png" text="Download" />
+          <Button imageSource="share.png" text="Share" />
+          <Button imageSource="heart.svg" text="Like" />
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__overlay" @click="navigateToDetails(4)"></div>
   </div>
 </template>
 
 <script>
 import { Button } from "../../molecules";
+import { useRouter } from "vue-router";
 export default {
+  props: {
+    movie: {
+      type: Object,
+      required: false,
+    },
+    isDetailsPage: {
+      type: Boolean,
+      required: false,
+    },
+  },
   components: {
     Button,
+  },
+  setup() {
+    const router = useRouter();
+
+    const navigateToDetails = (movieId) => {
+      router.push({
+        name: "MovieDetails",
+        params: { id: movieId },
+      });
+    };
+
+    return {
+      router,
+      navigateToDetails,
+    };
   },
 };
 </script>
 
 <style lang="scss">
 .hero {
+  max-width: 100vw;
+  overflow: hidden;
   position: absolute;
   height: 100%;
   top: 0;
@@ -111,6 +168,7 @@ export default {
     &-details {
       overflow: hidden;
       margin-top: 8px;
+
       p {
         text-overflow: ellipsis;
         max-width: 500px;
@@ -127,6 +185,19 @@ export default {
       align-items: center;
       gap: 16px;
     }
+
+    &-actions__details {
+      padding-right: 75px;
+      margin-top: 24px;
+      display: flex;
+      justify-content: space-between;
+
+      div {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+    }
   }
 
   &__overlay {
@@ -136,6 +207,7 @@ export default {
     right: 0;
     z-index: 2;
     height: 100%;
+    cursor: pointer;
 
     background: linear-gradient(
       359deg,
