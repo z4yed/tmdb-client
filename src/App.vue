@@ -1,38 +1,12 @@
 <template>
-  <div>
+  <div class="app__header">
     <Header />
   </div>
-  <!-- <div class="components">
-    <div class="buttons">
-      <Button text="Play Now" imageSource="play.png" />
-      <Button text="Watch Trailer" imageSource="play.png" />
-      <Button text="Add Watchlist" imageSource="bookmark.png" />
-      <Button text="Continue Watching" imageSource="play.png" />
-      <Button text="Download" imageSource="download.png" />
-      <Button text="Share" imageSource="share.png" />
-      <Button text="Like" imageSource="heart.svg" />
-    </div>
-
-    <div>
-      <PopularMovie />
-    </div>
-
-    <div>
-      <MovieCard />
-    </div>
-
-    <div class="else">
-      <MovieCard :isCompact="true" :key="2" />
-    </div>
-    <div>
-      <Cast />
-      <Cast />
-      <Cast />
-    </div>
-    <div>
-      <Footer />
-    </div> -->
-  <!-- </div> -->
+  <div class="app_content">
+    <Likes />
+    <Action />
+    <Footer />
+  </div>
 </template>
 
 <script>
@@ -45,7 +19,7 @@ import {
   Footer,
 } from "@/components/organisms";
 
-import { Header } from "@/components/templates";
+import { Header, Likes, Action } from "@/components/templates";
 
 export default {
   components: {
@@ -57,6 +31,8 @@ export default {
     Ratings,
     MovieCard,
     Cast,
+    Likes,
+    Action,
     Footer,
   },
   setup() {
@@ -68,13 +44,9 @@ export default {
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
 
-body {
+.app_content {
   color: $color-white-solid;
-}
-
-.components {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  background: $color-black-solid;
+  padding-left: 75px;
 }
 </style>
