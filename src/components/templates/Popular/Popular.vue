@@ -1,18 +1,18 @@
 <template>
-  <div class="action">
-    <h2 class="action__title">Action</h2>
-    <swiper
+  <div class="popular">
+    <h2 class="popular__title">Popular of the week</h2>
+    <Swiper
       @swiper="getRef"
       :modules="modules"
       :slidesPerView="'auto'"
       :spaceBetween="16"
       :loop="true"
       :autoplay="{
-        delay: ACTION_AUTOPLAY_DURATION,
+        delay: POPULAR_AUTOPLAY_DURATION,
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
       }"
-      class="action__movies"
+      class="just_release__movies"
     >
       <div class="right_navigation">
         <img
@@ -22,49 +22,49 @@
         />
       </div>
 
-      <swiper-slide>
-        <MovieCard key="1" />
+      <swiper-slide key="1">
+        <PopularMovie />
       </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="2" />
+      <swiper-slide key="2">
+        <PopularMovie />
       </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="3" />
+      <swiper-slide key="3">
+        <PopularMovie />
       </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="4" />
+      <swiper-slide key="4">
+        <PopularMovie />
       </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="5" />
+      <swiper-slide key="5">
+        <PopularMovie />
       </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="6" />
+      <swiper-slide key="6">
+        <PopularMovie />
       </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="7" />
+      <swiper-slide key="7">
+        <PopularMovie />
       </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="8" />
+      <swiper-slide key="8">
+        <PopularMovie />
       </swiper-slide>
-    </swiper>
+    </Swiper>
   </div>
 </template>
 <script>
-import { ACTION_AUTOPLAY_DURATION } from "../../../utils/constants";
-import { MovieCard } from "@/components/organisms";
+import { POPULAR_AUTOPLAY_DURATION } from "../../../utils/constants";
+import { PopularMovie } from "@/components/organisms";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { ref } from "vue";
 
-// import required modules
 import { Autoplay } from "swiper/modules";
 
 export default {
   components: {
     Swiper,
     SwiperSlide,
-    MovieCard,
+    PopularMovie,
   },
+
   setup() {
     const swiper = ref(null);
     function getRef(swiperInstance) {
@@ -76,18 +76,19 @@ export default {
     }
 
     return {
+      modules: [Autoplay],
+      POPULAR_AUTOPLAY_DURATION,
       getRef,
       slideToNext,
-      modules: [Autoplay],
-      ACTION_AUTOPLAY_DURATION,
     };
   },
 };
 </script>
 
 <style lang="scss">
-.action {
-  padding-top: 54px;
+.popular {
+  position: relative;
+  padding-top: 72px;
 
   &__title {
     font-size: 24px;
@@ -107,7 +108,7 @@ export default {
 
   .right_navigation {
     @extend .right_navigation;
-    height: 412px;
+    height: 130px;
   }
 }
 </style>

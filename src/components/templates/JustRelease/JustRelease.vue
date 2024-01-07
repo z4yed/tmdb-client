@@ -1,6 +1,6 @@
 <template>
-  <div class="action">
-    <h2 class="action__title">Action</h2>
+  <div class="just_release">
+    <h2 class="just_release__title">Just Release</h2>
     <swiper
       @swiper="getRef"
       :modules="modules"
@@ -8,11 +8,11 @@
       :spaceBetween="16"
       :loop="true"
       :autoplay="{
-        delay: ACTION_AUTOPLAY_DURATION,
+        delay: JUST_RELEASE_AUTOPLAY_DURATION,
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
       }"
-      class="action__movies"
+      class="just_release__movies"
     >
       <div class="right_navigation">
         <img
@@ -50,11 +50,11 @@
   </div>
 </template>
 <script>
-import { ACTION_AUTOPLAY_DURATION } from "../../../utils/constants";
+import { JUST_RELEASE_AUTOPLAY_DURATION } from "../../../utils/constants";
 import { MovieCard } from "@/components/organisms";
 
-import { Swiper, SwiperSlide } from "swiper/vue";
 import { ref } from "vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
 
 // import required modules
 import { Autoplay } from "swiper/modules";
@@ -76,18 +76,18 @@ export default {
     }
 
     return {
+      modules: [Autoplay],
+      JUST_RELEASE_AUTOPLAY_DURATION,
       getRef,
       slideToNext,
-      modules: [Autoplay],
-      ACTION_AUTOPLAY_DURATION,
     };
   },
 };
 </script>
 
 <style lang="scss">
-.action {
-  padding-top: 54px;
+.just_release {
+  padding-top: 75px;
 
   &__title {
     font-size: 24px;

@@ -4,3 +4,31 @@
 
   border: 1px solid red;
 }
+
+.right_navigation {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+
+  display: flex;
+  width: 167px;
+  padding: 72px 20px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  background: linear-gradient(
+    270deg,
+    #0d0c0f 18.88%,
+    rgba(13, 12, 15, 0) 99.97%,
+    #0d0c0f 99.97%
+  );
+
+  img {
+    cursor: pointer;
+    border-radius: 100px;
+    background: $color-black-700;
+    padding: 6px;
+  }
+}
