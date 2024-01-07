@@ -7,7 +7,7 @@
       :modules="modules"
       :loop="true"
       :autoplay="{
-        delay: 4000,
+        delay: HERO_AUTOPLAY_DURATION,
         disableOnInteraction: false,
       }"
       class="wrapper"
@@ -26,6 +26,8 @@
 
 <script>
 import { Navbar, Hero } from "@/components/organisms";
+
+import { HERO_AUTOPLAY_DURATION } from "../../../utils/constants";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
 
@@ -47,6 +49,7 @@ export default {
   setup() {
     return {
       modules: [Autoplay, Pagination],
+      HERO_AUTOPLAY_DURATION,
     };
   },
 };

@@ -1,0 +1,1 @@
+export const HERO_AUTOPLAY_DURATION = 4000;
