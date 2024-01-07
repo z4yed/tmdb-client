@@ -12,15 +12,10 @@
       }"
       class="wrapper"
     >
-      <swiper-slide>
-        <Hero key="1" />
-      </swiper-slide>
-      <swiper-slide>
-        <Hero key="2" />
+      <swiper-slide v-for="item in items" :key="item.id">
+        <Hero :movie="item" />
       </swiper-slide>
     </swiper>
-
-    <!-- <Hero /> -->
   </div>
 </template>
 
@@ -40,6 +35,8 @@ import "swiper/css/navigation";
 // import required modules
 import { Autoplay, Pagination } from "swiper/modules";
 
+import getNowPlayingMovies from "../../../composables/getNowPlayingMovies";
+
 export default {
   components: {
     Navbar,
@@ -48,9 +45,15 @@ export default {
     SwiperSlide,
   },
   setup() {
+    const { items, error, load } = getNowPlayingMovies();
+
+    load();
+
     return {
       modules: [Autoplay, Pagination],
       HERO_AUTOPLAY_DURATION,
+      items,
+      error,
     };
   },
 };

@@ -1,29 +1,21 @@
 <template>
   <div class="hero">
     <div class="hero__background">
-      <img
-        src="https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2059&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="hero image"
-        class="hero__background-img"
-      />
+      <img :src="movieBanner" alt="hero image" class="hero__background-img" />
     </div>
     <div class="hero__description" v-if="!isDetailsPage">
       <div class="hero__description-season">
         <span>Season 3</span>
       </div>
       <div class="hero__description-title">
-        <h2>The Last of Us</h2>
+        <h2>{{ movie.original_title }}</h2>
       </div>
       <div class="hero__description-others">
         <span>2h40m • 2022 • Fantasy • Actions</span>
       </div>
       <div class="hero__description-details">
         <p>
-          The third season of the American television series The Mandalorian
-          stars Pedro Pascal as the title character, a bounty hunter traveling
-          to Mandalore to redeem his past transgressions with his adopted son
-          Grogu and being aided on their journey by fellow Mandalorian Bo-Katan
-          Kryze.
+          {{ movie.overview }}
         </p>
       </div>
       <div class="hero__description-actions">
@@ -83,8 +75,11 @@ export default {
   components: {
     Button,
   },
-  setup() {
+  setup(props) {
     const router = useRouter();
+    const { movie } = props;
+    const movieBanner =
+      process.env.VUE_APP_TMDB_FILES_BASE_PATH + movie.backdrop_path;
 
     const navigateToDetails = (movieId) => {
       router.push({
@@ -95,7 +90,9 @@ export default {
 
     return {
       router,
+      movie,
       navigateToDetails,
+      movieBanner,
     };
   },
 };
