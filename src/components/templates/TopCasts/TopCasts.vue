@@ -1,18 +1,18 @@
 <template>
-  <div class="just_release">
-    <h2 class="just_release__title">Just Release</h2>
-    <swiper
+  <div class="top_casts">
+    <h2 class="top_casts__title">Top casts</h2>
+    <Swiper
       @swiper="getRef"
       :modules="modules"
       :slidesPerView="'auto'"
       :spaceBetween="16"
       :loop="true"
       :autoplay="{
-        delay: JUST_RELEASE_AUTOPLAY_DURATION,
+        delay: TOP_CASTS_AUTOPLAY_DURATION,
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
       }"
-      class="just_release__movies"
+      class="top_casts__movies"
     >
       <div class="right_navigation">
         <img
@@ -22,49 +22,64 @@
         />
       </div>
 
-      <swiper-slide>
-        <MovieCard key="1" />
+      <swiper-slide key="1">
+        <Cast />
       </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="2" />
+      <swiper-slide key="2">
+        <Cast />
       </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="3" />
+      <swiper-slide key="3">
+        <Cast />
       </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="4" />
+      <swiper-slide key="4">
+        <Cast />
       </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="5" />
+      <swiper-slide key="5">
+        <Cast />
       </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="6" />
+      <swiper-slide key="6">
+        <Cast />
       </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="7" />
+      <swiper-slide key="7">
+        <Cast />
       </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="8" />
+      <swiper-slide key="8">
+        <Cast />
       </swiper-slide>
-    </swiper>
+      <swiper-slide key="9">
+        <Cast />
+      </swiper-slide>
+      <swiper-slide key="10">
+        <Cast />
+      </swiper-slide>
+      <swiper-slide key="11">
+        <Cast />
+      </swiper-slide>
+      <swiper-slide key="12">
+        <Cast />
+      </swiper-slide>
+      <swiper-slide key="13">
+        <Cast />
+      </swiper-slide>
+    </Swiper>
   </div>
 </template>
 <script>
-import { JUST_RELEASE_AUTOPLAY_DURATION } from "../../../utils/constants";
-import { MovieCard } from "@/components/organisms";
+import { TOP_CASTS_AUTOPLAY_DURATION } from "../../../utils/constants";
+import { Cast } from "@/components/organisms";
 
-import { ref } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
+import { ref } from "vue";
 
-// import required modules
 import { Autoplay } from "swiper/modules";
 
 export default {
   components: {
     Swiper,
     SwiperSlide,
-    MovieCard,
+    Cast,
   },
+
   setup() {
     const swiper = ref(null);
     function getRef(swiperInstance) {
@@ -77,7 +92,7 @@ export default {
 
     return {
       modules: [Autoplay],
-      JUST_RELEASE_AUTOPLAY_DURATION,
+      TOP_CASTS_AUTOPLAY_DURATION,
       getRef,
       slideToNext,
     };
@@ -86,8 +101,9 @@ export default {
 </script>
 
 <style lang="scss">
-.just_release {
-  padding-top: 75px;
+.top_casts {
+  position: relative;
+  padding-top: 72px;
 
   &__title {
     font-size: 24px;
@@ -107,7 +123,8 @@ export default {
 
   .right_navigation {
     @extend .right_navigation;
-    height: 412px;
+    padding: 8px 20px;
+    height: 52px;
   }
 }
 </style>

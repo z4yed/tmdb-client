@@ -12,7 +12,7 @@
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
       }"
-      class="just_release__movies"
+      class="popular__movies"
     >
       <div class="right_navigation">
         <img
@@ -72,7 +72,7 @@ export default {
     }
 
     function slideToNext() {
-      swiper.value.slideNext(); // should work
+      swiper.value.slideNext();
     }
 
     return {

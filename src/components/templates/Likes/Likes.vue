@@ -72,7 +72,7 @@ export default {
     }
 
     function slideToNext() {
-      swiper.value.slideNext(); // should work
+      swiper.value.slideNext();
     }
 
     return {

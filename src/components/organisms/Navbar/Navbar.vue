@@ -1,22 +1,29 @@
 <template>
   <div class="nav">
     <div class="nav__left">
-      <a href="/">TheMovieCentral</a>
+      <router-link to="/"> TheMovieCentral </router-link>
     </div>
     <div class="nav__links">
       <ul>
         <li>
-          <a href="/home" title="Home">Home</a>
+          <router-link to="/" title="Home"> Home </router-link>
         </li>
         <li>
-          <a href="Discover" title="Discover">Discover</a>
-        </li>
-        <li><a href="Movie Release" title="Movie Release">Movie Release</a></li>
-        <li>
-          <a href="Forum" title="Forum">Forum</a>
+          <router-link to="/" title="Discover"> Discover </router-link>
         </li>
         <li>
-          <a href="Your Favourite" title="Your Favourite">Your Favourite</a>
+          <router-link to="/" title="Movie Release">
+            Movie Release
+          </router-link>
+        </li>
+
+        <li>
+          <router-link to="/" title="Forum"> Forum </router-link>
+        </li>
+        <li>
+          <router-link to="/" title="Your Favourite">
+            Your Favourite
+          </router-link>
         </li>
       </ul>
     </div>
