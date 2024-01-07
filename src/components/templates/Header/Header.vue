@@ -2,7 +2,16 @@
   <div class="header">
     <Navbar />
 
-    <swiper :pagination="true" :modules="modules" class="wrapper">
+    <swiper
+      :pagination="true"
+      :modules="modules"
+      :loop="true"
+      :autoplay="{
+        delay: 4000,
+        disableOnInteraction: false,
+      }"
+      class="wrapper"
+    >
       <swiper-slide>
         <Hero key="1" />
       </swiper-slide>
@@ -26,7 +35,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 // import required modules
-import { Pagination } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 
 export default {
   components: {
@@ -37,7 +46,7 @@ export default {
   },
   setup() {
     return {
-      modules: [Pagination],
+      modules: [Autoplay, Pagination],
     };
   },
 };
