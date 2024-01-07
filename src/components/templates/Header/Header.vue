@@ -3,7 +3,7 @@
     <Navbar />
 
     <swiper
-      :pagination="true"
+      :pagination="{ clickable: true }"
       :modules="modules"
       :loop="true"
       :autoplay="{
@@ -35,6 +35,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 // import required modules
 import { Autoplay, Pagination } from "swiper/modules";

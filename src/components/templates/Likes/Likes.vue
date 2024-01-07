@@ -2,6 +2,7 @@
   <div class="likes">
     <h2 class="likes__title">Your Likes</h2>
     <swiper
+      @swiper="getRef"
       :modules="modules"
       :slidesPerView="'auto'"
       :spaceBetween="16"
@@ -13,6 +14,14 @@
       }"
       class="likes__movies"
     >
+      <div class="right_navigation">
+        <img
+          src="../../../assets/images/icons/arrow-right.png"
+          alt="arrow right"
+          @click="slideToNext"
+        />
+      </div>
+
       <swiper-slide>
         <MovieCard key="1" :isCompact="true" />
       </swiper-slide>
@@ -45,6 +54,7 @@ import { LIKES_AUTOPLAY_DURATION } from "../../../utils/constants";
 import { MovieCard } from "@/components/organisms";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
+import { ref } from "vue";
 
 // import required modules
 import { Autoplay } from "swiper/modules";
@@ -56,7 +66,18 @@ export default {
     MovieCard,
   },
   setup() {
+    const swiper = ref(null);
+    function getRef(swiperInstance) {
+      swiper.value = swiperInstance;
+    }
+
+    function slideToNext() {
+      swiper.value.slideNext(); // should work
+    }
+
     return {
+      getRef,
+      slideToNext,
       modules: [Autoplay],
       LIKES_AUTOPLAY_DURATION,
     };
@@ -66,7 +87,7 @@ export default {
 
 <style lang="scss">
 .likes {
-  padding-top: 80px;
+  padding-top: 85px;
 
   &__title {
     font-size: 24px;
@@ -82,6 +103,11 @@ export default {
     .swiper-slide {
       width: unset;
     }
+  }
+
+  .right_navigation {
+    @extend .right_navigation;
+    height: 256px;
   }
 }
 </style>

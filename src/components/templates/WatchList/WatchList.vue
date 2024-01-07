@@ -1,6 +1,6 @@
 <template>
-  <div class="action">
-    <h2 class="action__title">Action</h2>
+  <div class="watch_list">
+    <h2 class="watch_list__title">Your Watchlist</h2>
     <swiper
       @swiper="getRef"
       :modules="modules"
@@ -8,11 +8,11 @@
       :spaceBetween="16"
       :loop="true"
       :autoplay="{
-        delay: ACTION_AUTOPLAY_DURATION,
+        delay: WATCH_LIST_AUTOPLAY_DURATION,
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
       }"
-      class="action__movies"
+      class="watch_list__movies"
     >
       <div class="right_navigation">
         <img
@@ -23,34 +23,34 @@
       </div>
 
       <swiper-slide>
-        <MovieCard key="1" />
+        <MovieCard key="1" :isCompact="true" />
       </swiper-slide>
       <swiper-slide>
-        <MovieCard key="2" />
+        <MovieCard key="2" :isCompact="true" />
       </swiper-slide>
       <swiper-slide>
-        <MovieCard key="3" />
+        <MovieCard key="3" :isCompact="true" />
       </swiper-slide>
       <swiper-slide>
-        <MovieCard key="4" />
+        <MovieCard key="4" :isCompact="true" />
       </swiper-slide>
       <swiper-slide>
-        <MovieCard key="5" />
+        <MovieCard key="5" :isCompact="true" />
       </swiper-slide>
       <swiper-slide>
-        <MovieCard key="6" />
+        <MovieCard key="6" :isCompact="true" />
       </swiper-slide>
       <swiper-slide>
-        <MovieCard key="7" />
+        <MovieCard key="7" :isCompact="true" />
       </swiper-slide>
       <swiper-slide>
-        <MovieCard key="8" />
+        <MovieCard key="8" :isCompact="true" />
       </swiper-slide>
     </swiper>
   </div>
 </template>
 <script>
-import { ACTION_AUTOPLAY_DURATION } from "../../../utils/constants";
+import { WATCH_LIST_AUTOPLAY_DURATION } from "../../../utils/constants";
 import { MovieCard } from "@/components/organisms";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -74,20 +74,19 @@ export default {
     function slideToNext() {
       swiper.value.slideNext(); // should work
     }
-
     return {
       getRef,
       slideToNext,
       modules: [Autoplay],
-      ACTION_AUTOPLAY_DURATION,
+      WATCH_LIST_AUTOPLAY_DURATION,
     };
   },
 };
 </script>
 
 <style lang="scss">
-.action {
-  padding-top: 54px;
+.watch_list {
+  padding-top: 80px;
 
   &__title {
     font-size: 24px;
@@ -107,7 +106,7 @@ export default {
 
   .right_navigation {
     @extend .right_navigation;
-    height: 412px;
+    height: 256px;
   }
 }
 </style>

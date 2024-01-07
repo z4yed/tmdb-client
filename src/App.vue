@@ -3,6 +3,9 @@
     <Header />
   </div>
   <div class="app_content">
+    <PopularMovies />
+    <JustRelease />
+    <WatchList />
     <Likes />
     <Action />
     <Footer />
@@ -19,7 +22,14 @@ import {
   Footer,
 } from "@/components/organisms";
 
-import { Header, Likes, Action } from "@/components/templates";
+import {
+  Header,
+  PopularMovies,
+  JustRelease,
+  WatchList,
+  Likes,
+  Action,
+} from "@/components/templates";
 
 export default {
   components: {
@@ -31,6 +41,9 @@ export default {
     Ratings,
     MovieCard,
     Cast,
+    PopularMovies,
+    JustRelease,
+    WatchList,
     Likes,
     Action,
     Footer,
