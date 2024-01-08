@@ -51,7 +51,7 @@ export default {
     const fetchData = async () => {
       const movies_url =
         process.env.VUE_APP_TMDB_API_BASE_URL +
-        "/movie/now_playing?language=en-US&page=1";
+        "/trending/tv/day?language=en-US";
 
       const headers = {
         accept: "application/json",

@@ -42,20 +42,14 @@ export default {
     const similarMovies = ref(null);
 
     const fetchData = async () => {
-      const details_url =
-        process.env.VUE_APP_TMDB_API_BASE_URL + "/movie/" + props.id;
+      const detailsUrl =
+        process.env.VUE_APP_TMDB_API_BASE_URL + "/tv/" + props.id;
 
-      const credits_url =
-        process.env.VUE_APP_TMDB_API_BASE_URL +
-        "/movie/" +
-        props.id +
-        "/credits";
+      const creditsUrl =
+        process.env.VUE_APP_TMDB_API_BASE_URL + "/tv/" + props.id + "/credits";
 
-      const similar_url =
-        process.env.VUE_APP_TMDB_API_BASE_URL +
-        "/movie/" +
-        props.id +
-        "/similar";
+      const recommendationMoviesUrl =
+        process.env.VUE_APP_TMDB_API_BASE_URL + "/tv/" + props.id + "/similar";
 
       const headers = {
         accept: "application/json",
@@ -63,10 +57,10 @@ export default {
       };
 
       try {
-        let movieCasts = await makeApiCall(credits_url, "get", null, headers);
-        let movieDetails = await makeApiCall(details_url, "get", null, headers);
+        let movieDetails = await makeApiCall(detailsUrl, "get", null, headers);
+        let movieCasts = await makeApiCall(creditsUrl, "get", null, headers);
         let recommendations = await makeApiCall(
-          similar_url,
+          recommendationMoviesUrl,
           "get",
           null,
           headers

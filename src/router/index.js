@@ -8,7 +8,7 @@ const routes = [
     component: Home,
   },
   {
-    path: "/movie/:id",
+    path: "/series/:id",
     name: "MovieDetails",
     component: MovieDetails,
     props: true,
