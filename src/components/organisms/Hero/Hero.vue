@@ -1,21 +1,21 @@
 <template>
   <div class="hero">
     <div class="hero__background">
-      <img :src="movieBanner" alt="hero image" class="hero__background-img" />
+      <img :src="seriesBanner" alt="hero image" class="hero__background-img" />
     </div>
     <div class="hero__description" v-if="!isDetailsPage">
       <div class="hero__description-season">
-        <span>{{ movie.adult ? "Adult" : "All ages" }}</span>
+        <span>{{ series.adult ? "Adult" : "All ages" }}</span>
       </div>
       <div class="hero__description-title">
-        <h2>{{ movie.original_title }}</h2>
+        <h2>{{ series.original_title }}</h2>
       </div>
       <div class="hero__description-others">
         <span> {{ isDetailsPage ? genresForDetailsPage : genres }}</span>
       </div>
       <div class="hero__description-details">
         <p>
-          {{ movie.overview }}
+          {{ series.overview }}
         </p>
       </div>
       <div class="hero__description-actions">
@@ -27,10 +27,10 @@
 
     <div class="hero__description" v-if="isDetailsPage">
       <div class="hero__description-season">
-        <span>{{ movie.adult ? "Adult" : "All ages" }}</span>
+        <span>{{ series.adult ? "Adult" : "All ages" }}</span>
       </div>
       <div class="hero__description-title">
-        <h2>{{ movie.name }}</h2>
+        <h2>{{ series.name }}</h2>
       </div>
       <div class="hero__description-others">
         <span> {{ genresForDetailsPage() }}</span>
@@ -54,7 +54,7 @@
       </div>
     </div>
 
-    <div class="hero__overlay" @click="navigateToDetails(movie.id)"></div>
+    <div class="hero__overlay" @click="navigateToDetails(series.id)"></div>
   </div>
 </template>
 
@@ -66,7 +66,7 @@ import { useStore } from "vuex";
 
 export default {
   props: {
-    movie: {
+    series: {
       type: Object,
       required: false,
     },
@@ -82,16 +82,16 @@ export default {
     const router = useRouter();
     const store = useStore();
 
-    const { movie, isDetailsPage } = props;
+    const { series, isDetailsPage } = props;
 
-    const movieBanner =
-      process.env.VUE_APP_TMDB_FILES_BASE_PATH + movie?.backdrop_path;
+    const seriesBanner =
+      process.env.VUE_APP_TMDB_FILES_BASE_PATH + series?.backdrop_path;
 
-    const navigateToDetails = (movieId) => {
+    const navigateToDetails = (seriesId) => {
       if (!isDetailsPage) {
         router.push({
           name: "MovieDetails",
-          params: { id: movieId },
+          params: { id: seriesId },
         });
       }
     };
@@ -102,17 +102,19 @@ export default {
 
     const genres = computed(() => {
       if (!isDetailsPage) {
-        const movieGenres = store.getters.getGenresByIds(movie.genre_ids ?? []);
-        return movieGenres.join(" • ");
+        const seriesGenres = store.getters.getGenresByIds(
+          series.genre_ids ?? []
+        );
+        return seriesGenres.join(" • ");
       }
     });
 
     const genresForDetailsPage = () => {
       if (isDetailsPage) {
         const output = [
-          movie.number_of_seasons + " Seasons",
-          movie.number_of_episodes + " Episodes",
-          ...movie.genres.map((genre) => genre.name),
+          series.number_of_seasons + " Seasons",
+          series.number_of_episodes + " Episodes",
+          ...series.genres.map((genre) => genre.name),
         ];
         return output.map((value) => value).join(" • ");
       }
@@ -120,9 +122,9 @@ export default {
 
     return {
       router,
-      movie,
+      series,
       navigateToDetails,
-      movieBanner,
+      seriesBanner,
       authUser,
       genres,
       genresForDetailsPage,

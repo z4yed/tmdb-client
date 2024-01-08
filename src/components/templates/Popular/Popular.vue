@@ -23,14 +23,14 @@
       </div>
 
       <swiper-slide v-for="(series, index) in popularSeries" :key="series.id">
-        <PopularMovie :series="series" :index="index + 1" />
+        <PopularSeries :series="series" :index="index + 1" />
       </swiper-slide>
     </Swiper>
   </div>
 </template>
 <script>
 import { POPULAR_AUTOPLAY_DURATION } from "../../../utils/constants";
-import { PopularMovie } from "@/components/organisms";
+import { PopularSeries } from "@/components/organisms";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { onMounted, ref } from "vue";
@@ -42,7 +42,7 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
-    PopularMovie,
+    PopularSeries,
   },
 
   setup() {

@@ -22,15 +22,15 @@
         />
       </div>
 
-      <swiper-slide v-for="movie in movies" :key="movie.id">
-        <MovieCard :movie="movie" :isCompact="true" />
+      <swiper-slide v-for="series in seriesList" :key="series.id">
+        <SeriesCard :series="series" :isCompact="true" />
       </swiper-slide>
     </swiper>
   </div>
 </template>
 <script>
 import { RECOMMENDATION_AUTOPLAY_DURATION } from "../../../utils/constants";
-import { MovieCard } from "@/components/organisms";
+import { SeriesCard } from "@/components/organisms";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { ref } from "vue";
@@ -40,7 +40,7 @@ import { Autoplay } from "swiper/modules";
 
 export default {
   props: {
-    movies: {
+    seriesList: {
       type: Array,
       required: true,
     },
@@ -48,7 +48,7 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
-    MovieCard,
+    SeriesCard,
   },
   setup() {
     const swiper = ref(null);

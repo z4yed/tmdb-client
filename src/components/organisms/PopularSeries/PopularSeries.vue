@@ -18,7 +18,7 @@
         <MovieGenre :items="[genres]" />
       </div>
       <div class="popular_movie__info__ratings">
-        <Ratings :value="series.vote_average" :genreTexts="genres_min" />
+        <Ratings :value="series.vote_average" :genreTexts="[genres_min]" />
       </div>
     </div>
   </div>

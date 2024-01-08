@@ -23,14 +23,14 @@
       </div>
 
       <swiper-slide v-for="series in topRatedSeries" :key="series.id">
-        <MovieCard :movie="series" :key="series.id" />
+        <SeriesCard :series="series" :key="series.id" />
       </swiper-slide>
     </swiper>
   </div>
 </template>
 <script>
 import { ACTION_AUTOPLAY_DURATION } from "../../../utils/constants";
-import { MovieCard } from "@/components/organisms";
+import { SeriesCard } from "@/components/organisms";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { ref, onMounted } from "vue";
@@ -43,7 +43,7 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
-    MovieCard,
+    SeriesCard,
   },
   setup() {
     const swiper = ref(null);

@@ -23,35 +23,35 @@
       </div>
 
       <swiper-slide>
-        <MovieCard key="1" :isCompact="true" />
+        <SeriesCard key="1" :isCompact="true" />
       </swiper-slide>
       <swiper-slide>
-        <MovieCard key="2" :isCompact="true" />
+        <SeriesCard key="2" :isCompact="true" />
       </swiper-slide>
       <swiper-slide>
-        <MovieCard key="3" :isCompact="true" />
+        <SeriesCard key="3" :isCompact="true" />
       </swiper-slide>
       <swiper-slide>
-        <MovieCard key="4" :isCompact="true" />
+        <SeriesCard key="4" :isCompact="true" />
       </swiper-slide>
       <swiper-slide>
-        <MovieCard key="5" :isCompact="true" />
+        <SeriesCard key="5" :isCompact="true" />
       </swiper-slide>
       <swiper-slide>
-        <MovieCard key="6" :isCompact="true" />
+        <SeriesCard key="6" :isCompact="true" />
       </swiper-slide>
       <swiper-slide>
-        <MovieCard key="7" :isCompact="true" />
+        <SeriesCard key="7" :isCompact="true" />
       </swiper-slide>
       <swiper-slide>
-        <MovieCard key="8" :isCompact="true" />
+        <SeriesCard key="8" :isCompact="true" />
       </swiper-slide>
     </swiper>
   </div>
 </template>
 <script>
 import { WATCH_LIST_AUTOPLAY_DURATION } from "../../../utils/constants";
-import { MovieCard } from "@/components/organisms";
+import { SeriesCard } from "@/components/organisms";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { ref } from "vue";
@@ -63,7 +63,7 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
-    MovieCard,
+    SeriesCard,
   },
   setup() {
     const swiper = ref(null);

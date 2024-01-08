@@ -1,18 +1,23 @@
 <template>
   <div class="details_header">
     <Navbar />
-    <Hero :isDetailsPage="true" :movie="movie" v-if="movie" :key="movie.id" />
+    <Hero
+      :isDetailsPage="true"
+      :series="series"
+      v-if="series"
+      :key="series.id"
+    />
   </div>
-  <div class="details_content" v-if="movie">
+  <div class="details_content" v-if="series">
     <div class="details_content__story">
       <h2 class="">Story Line</h2>
       <p>
-        {{ movie.overview }}
-        <span class="more"> More </span>
+        {{ series.overview }}
+        <!-- <span class="more"> More </span> -->
       </p>
     </div>
     <TopCasts :casts="casts" />
-    <Recommendation :movies="similarMovies" />
+    <Recommendation :seriesList="similarSeries" />
   </div>
 </template>
 <script>
@@ -37,9 +42,9 @@ export default {
   setup(props) {
     const route = useRoute();
     const router = useRouter();
-    const movie = ref(null);
+    const series = ref(null);
     const casts = ref(null);
-    const similarMovies = ref(null);
+    const similarSeries = ref(null);
 
     const fetchData = async () => {
       const detailsUrl =
@@ -57,8 +62,8 @@ export default {
       };
 
       try {
-        let movieDetails = await makeApiCall(detailsUrl, "get", null, headers);
-        let movieCasts = await makeApiCall(creditsUrl, "get", null, headers);
+        let seriesDetails = await makeApiCall(detailsUrl, "get", null, headers);
+        let seriesCasts = await makeApiCall(creditsUrl, "get", null, headers);
         let recommendations = await makeApiCall(
           recommendationMoviesUrl,
           "get",
@@ -66,9 +71,9 @@ export default {
           headers
         );
 
-        movie.value = movieDetails;
-        casts.value = movieCasts.cast;
-        similarMovies.value = recommendations.results;
+        series.value = seriesDetails;
+        casts.value = seriesCasts.cast;
+        similarSeries.value = recommendations.results;
       } catch (err) {
         router.push({ name: "Home" });
       }
@@ -86,9 +91,9 @@ export default {
     onMounted(fetchData);
 
     return {
-      movie,
+      series,
       casts,
-      similarMovies,
+      similarSeries,
     };
   },
 };

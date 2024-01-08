@@ -12,8 +12,8 @@
       }"
       class="wrapper"
     >
-      <swiper-slide v-for="movie in nowPlayingMovies" :key="movie.id">
-        <Hero :movie="movie" :key="movie.id" />
+      <swiper-slide v-for="series in trendingSeries" :key="series.id">
+        <Hero :series="series" :key="series.id" />
       </swiper-slide>
     </swiper>
   </div>
@@ -46,7 +46,7 @@ export default {
     SwiperSlide,
   },
   setup() {
-    const nowPlayingMovies = ref([]);
+    const trendingSeries = ref([]);
 
     const fetchData = async () => {
       const movies_url =
@@ -59,13 +59,13 @@ export default {
       };
 
       try {
-        const fetchedMovies = await makeApiCall(
+        const fetchedSeries = await makeApiCall(
           movies_url,
           "get",
           null,
           headers
         );
-        nowPlayingMovies.value = fetchedMovies.results;
+        trendingSeries.value = fetchedSeries.results;
       } catch (err) {
         router.push({ name: "Home" });
       }
@@ -76,7 +76,7 @@ export default {
     return {
       modules: [Autoplay, Pagination],
       HERO_AUTOPLAY_DURATION,
-      nowPlayingMovies,
+      trendingSeries,
     };
   },
 };
