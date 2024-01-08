@@ -7,13 +7,19 @@
 
 <script>
 import { Footer } from "@/components/organisms";
+import { useStore } from "vuex";
 
 export default {
   components: {
     Footer,
   },
   setup() {
-    return {};
+    const store = useStore();
+    store.dispatch("setGenres");
+
+    return {
+      store,
+    };
   },
 };
 </script>
