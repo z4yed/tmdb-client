@@ -49,7 +49,7 @@ export default {
     const trendingSeries = ref([]);
 
     const fetchData = async () => {
-      const movies_url =
+      const trendingSeriesUrl =
         process.env.VUE_APP_TMDB_API_BASE_URL +
         "/trending/tv/day?language=en-US";
 
@@ -60,7 +60,7 @@ export default {
 
       try {
         const fetchedSeries = await makeApiCall(
-          movies_url,
+          trendingSeriesUrl,
           "get",
           null,
           headers

@@ -1,6 +1,6 @@
 <template>
   <div class="recommendation">
-    <h2 class="recommendation__title">Similar Movies For You</h2>
+    <h2 class="recommendation__title">Similar Series For You</h2>
     <swiper
       @swiper="getRef"
       :modules="modules"
@@ -12,7 +12,7 @@
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
       }"
-      class="recommendation__movies"
+      class="recommendation__series"
     >
       <div class="right_navigation">
         <img
@@ -81,7 +81,7 @@ export default {
     letter-spacing: 0.12px;
   }
 
-  &__movies {
+  &__series {
     margin-top: 24px;
 
     .swiper-slide {

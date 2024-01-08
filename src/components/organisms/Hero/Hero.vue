@@ -90,7 +90,7 @@ export default {
     const navigateToDetails = (seriesId) => {
       if (!isDetailsPage) {
         router.push({
-          name: "MovieDetails",
+          name: "SeriesDetails",
           params: { id: seriesId },
         });
       }

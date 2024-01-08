@@ -1,23 +1,23 @@
 <template>
-  <div class="popular_movie">
-    <div class="popular_movie__index">{{ index }}</div>
-    <div class="popular_movie__thumb">
-      <router-link :to="{ name: 'MovieDetails', params: { id: series.id } }">
+  <div class="popular_series">
+    <div class="popular_series__index">{{ index }}</div>
+    <div class="popular_series__thumb">
+      <router-link :to="{ name: 'SeriesDetails', params: { id: series.id } }">
         <img :src="poster_path" alt="" />
       </router-link>
     </div>
-    <div class="popular_movie__info">
-      <div class="popular_movie__info__tag">
+    <div class="popular_series__info">
+      <div class="popular_series__info__tag">
         <span>{{ series.original_language }}</span>
       </div>
-      <div class="popular_movie__info__title">
+      <div class="popular_series__info__title">
         {{ series.name }}
       </div>
-      <div class="popular_movie__info__genres">
+      <div class="popular_series__info__genres">
         <img src="../../../assets/images/popular/film.svg" alt="" />
-        <MovieGenre :items="[genres]" />
+        <Genre :items="[genres]" />
       </div>
-      <div class="popular_movie__info__ratings">
+      <div class="popular_series__info__ratings">
         <Ratings :value="series.vote_average" :genreTexts="[genres_min]" />
       </div>
     </div>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import MovieGenre from "@/components/molecules/MovieGenre/MovieGenre.vue";
+import Genre from "@/components/molecules/Genre/Genre.vue";
 import Ratings from "@/components/organisms/Ratings/Ratings.vue";
 import { computed } from "vue";
 import { useStore } from "vuex";
@@ -41,7 +41,7 @@ export default {
     },
   },
   components: {
-    MovieGenre,
+    Genre,
     Ratings,
   },
 
@@ -50,13 +50,13 @@ export default {
     const poster_path = `${process.env.VUE_APP_TMDB_FILES_BASE_PATH}${series.poster_path}`;
 
     const genres = computed(() => {
-      const movieGenres = store.getters.getGenresByIds(series.genre_ids);
-      return movieGenres.join(" • ").slice(0, 25);
+      const genres = store.getters.getGenresByIds(series.genre_ids);
+      return genres.join(" • ").slice(0, 25);
     });
 
     const genres_min = computed(() => {
-      const movieGenres = store.getters.getGenresByIds(series.genre_ids);
-      return movieGenres.join(" • ").slice(0, 15);
+      const genres = store.getters.getGenresByIds(series.genre_ids);
+      return genres.join(" • ").slice(0, 15);
     });
 
     return {
@@ -69,7 +69,7 @@ export default {
 </script>
 
 <style lang="scss">
-.popular_movie {
+.popular_series {
   height: 134px;
   display: flex;
   align-items: center;

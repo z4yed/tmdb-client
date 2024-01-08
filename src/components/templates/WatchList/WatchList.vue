@@ -12,7 +12,7 @@
         disableOnInteraction: false,
         pauseOnMouseEnter: true,
       }"
-      class="watch_list__movies"
+      class="watch_list__series"
     >
       <div class="right_navigation">
         <img
@@ -96,7 +96,7 @@ export default {
     letter-spacing: 0.12px;
   }
 
-  &__movies {
+  &__series {
     margin-top: 24px;
 
     .swiper-slide {
