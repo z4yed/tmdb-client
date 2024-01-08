@@ -7,6 +7,7 @@
       :slidesPerView="'auto'"
       :spaceBetween="16"
       :loop="true"
+      v-if="justReleases.length"
       :autoplay="{
         delay: JUST_RELEASE_AUTOPLAY_DURATION,
         disableOnInteraction: false,

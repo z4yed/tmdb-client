@@ -16,8 +16,8 @@
         <!-- <span class="more"> More </span> -->
       </p>
     </div>
-    <TopCasts :casts="casts" />
-    <Recommendation :seriesList="similarSeries" />
+    <TopCasts :casts="casts" v-if="casts.length" />
+    <Recommendation :seriesList="similarSeries" v-if="similarSeries.length" />
   </div>
 </template>
 <script>

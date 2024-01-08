@@ -7,6 +7,7 @@
       :slidesPerView="'auto'"
       :spaceBetween="16"
       :loop="true"
+      v-if="popularSeries.length"
       :autoplay="{
         delay: POPULAR_AUTOPLAY_DURATION,
         disableOnInteraction: false,
