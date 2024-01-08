@@ -8,7 +8,9 @@
         <span>{{ series.adult ? "Adult" : "All ages" }}</span>
       </div>
       <div class="hero__description-title">
-        <h2>{{ series.original_title }}</h2>
+        <h2>
+          {{ series.name }}
+        </h2>
       </div>
       <div class="hero__description-others">
         <span> {{ isDetailsPage ? genresForDetailsPage : genres }}</span>
@@ -38,18 +40,31 @@
       <div class="hero__description-actions" v-if="!isDetailsPage">
         <Button imageSource="play.png" text="Play Now" />
         <Button imageSource="play.png" text="Watch Trailer" />
-        <Button imageSource="bookmark.png" text="Add Watchlist" />
+        <Button
+          :imageSource="isInWatchList ? 'bookmark_fill.svg' : 'bookmark.svg'"
+          :text="isInWatchList ? 'Remove Watchlist' : 'Add Watchlist'"
+          @click="modifyWatchList(isInWatchList ? false : true)"
+          :key="series.id"
+        />
       </div>
 
       <div class="hero__description-actions__details" v-if="isDetailsPage">
         <div>
           <Button imageSource="play.png" text="Continue Watching" />
-          <Button imageSource="bookmark.png" text="Add Watchlist" />
+          <Button
+            :imageSource="isInWatchList ? 'bookmark_fill.svg' : 'bookmark.svg'"
+            :text="isInWatchList ? 'Remove Watchlist' : 'Add Watchlist'"
+            @click="modifyWatchList(isInWatchList ? false : true)"
+          />
         </div>
         <div>
           <Button imageSource="download.png" text="Download" />
           <Button imageSource="share.png" text="Share" />
-          <Button imageSource="heart.svg" text="Like" />
+          <Button
+            :imageSource="isFavorite ? 'heart_red.svg' : 'heart.svg'"
+            text="Like"
+            @click="modifyFavoritesList(isFavorite ? false : true)"
+          />
         </div>
       </div>
     </div>
@@ -100,6 +115,26 @@ export default {
       return store.state.user;
     });
 
+    const favoriteSeriesList = computed(() => {
+      return store.getters.getFavoriteSeriesIds;
+    });
+
+    const isFavorite = computed(() => {
+      return store.getters.isSeriesAlreadyFavorite(series.id);
+    });
+
+    const modifyFavoritesList = (status) => {
+      store.dispatch("modifyFavorites", { series, status });
+    };
+
+    const isInWatchList = computed(() => {
+      return store.getters.isSeriesAlreadyInWatchList(series.id);
+    });
+
+    const modifyWatchList = (status) => {
+      store.dispatch("modifyWatchList", { series, status });
+    };
+
     const genres = computed(() => {
       if (!isDetailsPage) {
         const seriesGenres = store.getters.getGenresByIds(
@@ -128,6 +163,11 @@ export default {
       authUser,
       genres,
       genresForDetailsPage,
+      favoriteSeriesList,
+      modifyFavoritesList,
+      isFavorite,
+      modifyWatchList,
+      isInWatchList,
     };
   },
 };

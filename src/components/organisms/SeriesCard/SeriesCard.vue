@@ -2,7 +2,11 @@
   <div class="series_card" :class="isCompact ? 'compact' : ''">
     <div class="series_card__thumbnail">
       <router-link :to="{ name: 'SeriesDetails', params: { id: series.id } }">
-        <img :src="series_poster_path" alt="" @click="navigateToDetails" />
+        <img
+          :src="series_poster_path"
+          alt="poster"
+          @click="navigateToDetails"
+        />
       </router-link>
     </div>
     <div class="series_card__description">
@@ -14,7 +18,13 @@
       </div>
     </div>
     <div v-if="isCompact == false" class="series_card__favourite">
-      <img src="../../../assets/images/icons/heart.svg" alt="" />
+      <img
+        :src="
+          isFavorite ? getImageUrl('heart_red.svg') : getImageUrl('heart.svg')
+        "
+        alt=""
+        @click="modifyFavoritesList(isFavorite ? false : true)"
+      />
     </div>
   </div>
 </template>
@@ -43,14 +53,35 @@ export default {
     const series_poster_path = `${process.env.VUE_APP_TMDB_FILES_BASE_PATH}${series.poster_path}`;
 
     const genres = computed(() => {
-      const genres = store.getters.getGenresByIds(series.genre_ids);
+      const genres = store.getters.getGenresByIds(series.genre_ids ?? []);
       return genres.join(" • ").slice(0, 25);
     });
+
+    const isFavorite = computed(() => {
+      return store.getters.isSeriesAlreadyFavorite(series.id);
+    });
+
+    const modifyFavoritesList = (status) => {
+      store.dispatch("modifyFavorites", { series, status });
+    };
+
+    const images = require.context(
+      "../../../assets/images/icons",
+      false,
+      /\.(png|jpg|jpeg|gif|svg)$/
+    );
+
+    function getImageUrl(imageSource) {
+      return images("./" + imageSource);
+    }
 
     return {
       series_poster_path,
       genres,
       router,
+      isFavorite,
+      modifyFavoritesList,
+      getImageUrl,
     };
   },
 };
@@ -125,6 +156,7 @@ $root: ".series_card";
     img {
       height: 183px;
       width: 280px;
+      object-fit: fill;
     }
   }
 
