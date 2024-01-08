@@ -2,10 +2,10 @@
   <Header />
   <div class="home_content">
     <PopularMovies />
-    <!-- <JustRelease /> -->
+    <JustRelease />
     <!-- <WatchList /> -->
     <!-- <Likes /> -->
-    <!-- <Action /> -->
+    <Action />
   </div>
 </template>
 

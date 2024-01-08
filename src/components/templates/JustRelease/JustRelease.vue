@@ -22,29 +22,8 @@
         />
       </div>
 
-      <swiper-slide>
-        <MovieCard key="1" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="2" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="3" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="4" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="5" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="6" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="7" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="8" />
+      <swiper-slide v-for="series in justReleases" :key="series.id">
+        <MovieCard :movie="series" :key="series.id" />
       </swiper-slide>
     </swiper>
   </div>
@@ -53,11 +32,11 @@
 import { JUST_RELEASE_AUTOPLAY_DURATION } from "../../../utils/constants";
 import { MovieCard } from "@/components/organisms";
 
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 
-// import required modules
 import { Autoplay } from "swiper/modules";
+import makeApiCall from "../../../utils/apiClient";
 
 export default {
   components: {
@@ -67,6 +46,32 @@ export default {
   },
   setup() {
     const swiper = ref(null);
+    const justReleases = ref([]);
+
+    const fetchData = async () => {
+      const justReleaseUrl =
+        process.env.VUE_APP_TMDB_API_BASE_URL + "/tv/on_the_air";
+
+      const headers = {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.VUE_APP_TMDB_API_ACCESS_TOKEN}`,
+      };
+
+      try {
+        const fetchedSeries = await makeApiCall(
+          justReleaseUrl,
+          "get",
+          null,
+          headers
+        );
+        justReleases.value = fetchedSeries.results;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    onMounted(fetchData);
+
     function getRef(swiperInstance) {
       swiper.value = swiperInstance;
     }
@@ -80,6 +85,7 @@ export default {
       JUST_RELEASE_AUTOPLAY_DURATION,
       getRef,
       slideToNext,
+      justReleases,
     };
   },
 };

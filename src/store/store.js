@@ -36,10 +36,7 @@ export const store = createStore({
         },
       };
 
-      fetch(
-        `${process.env.VUE_APP_TMDB_API_BASE_URL}/genre/movie/list?language=en`,
-        options
-      )
+      fetch(`${process.env.VUE_APP_TMDB_API_BASE_URL}/genre/tv/list`, options)
         .then((response) => response.json())
         .then((response) => context.commit("setGenres", response.genres))
         .catch((err) => console.error(err));

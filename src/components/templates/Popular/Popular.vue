@@ -50,7 +50,7 @@ export default {
     const popularSeries = ref([]);
 
     const fetchData = async () => {
-      const popular_movies_url =
+      const popularSeriesUrl =
         process.env.VUE_APP_TMDB_API_BASE_URL + "/tv/popular";
 
       const headers = {
@@ -59,13 +59,13 @@ export default {
       };
 
       try {
-        const fetchedMovies = await makeApiCall(
-          popular_movies_url,
+        const fetchedSeries = await makeApiCall(
+          popularSeriesUrl,
           "get",
           null,
           headers
         );
-        popularSeries.value = fetchedMovies.results;
+        popularSeries.value = fetchedSeries.results;
       } catch (err) {
         console.log(err);
       }

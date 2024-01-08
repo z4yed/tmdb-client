@@ -1,6 +1,6 @@
 <template>
   <div class="action">
-    <h2 class="action__title">Action</h2>
+    <h2 class="action__title">Top Rated Series</h2>
     <swiper
       @swiper="getRef"
       :modules="modules"
@@ -22,29 +22,8 @@
         />
       </div>
 
-      <swiper-slide>
-        <MovieCard key="1" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="2" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="3" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="4" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="5" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="6" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="7" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="8" />
+      <swiper-slide v-for="series in topRatedSeries" :key="series.id">
+        <MovieCard :movie="series" :key="series.id" />
       </swiper-slide>
     </swiper>
   </div>
@@ -54,7 +33,8 @@ import { ACTION_AUTOPLAY_DURATION } from "../../../utils/constants";
 import { MovieCard } from "@/components/organisms";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import makeApiCall from "../../../utils/apiClient";
 
 // import required modules
 import { Autoplay } from "swiper/modules";
@@ -67,6 +47,32 @@ export default {
   },
   setup() {
     const swiper = ref(null);
+    const topRatedSeries = ref([]);
+
+    const fetchData = async () => {
+      const topRatedSeriesUrl =
+        process.env.VUE_APP_TMDB_API_BASE_URL + "/tv/top_rated";
+
+      const headers = {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.VUE_APP_TMDB_API_ACCESS_TOKEN}`,
+      };
+
+      try {
+        const fetchedSeries = await makeApiCall(
+          topRatedSeriesUrl,
+          "get",
+          null,
+          headers
+        );
+        topRatedSeries.value = fetchedSeries.results;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    onMounted(fetchData);
+
     function getRef(swiperInstance) {
       swiper.value = swiperInstance;
     }
@@ -80,6 +86,7 @@ export default {
       slideToNext,
       modules: [Autoplay],
       ACTION_AUTOPLAY_DURATION,
+      topRatedSeries,
     };
   },
 };

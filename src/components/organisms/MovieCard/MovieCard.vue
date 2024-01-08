@@ -7,7 +7,7 @@
     </div>
     <div class="movie_card__description">
       <div class="movie_card__description-title">
-        {{ movie.original_title }}
+        {{ movie.name }}
       </div>
       <div class="movie_card__description-ratings">
         <Ratings :value="movie.vote_average" :genreTexts="[genres]" />
@@ -44,7 +44,7 @@ export default {
 
     const genres = computed(() => {
       const movieGenres = store.getters.getGenresByIds(movie.genre_ids);
-      return movieGenres.join(" • ");
+      return movieGenres.join(" • ").slice(0, 25);
     });
 
     return {
