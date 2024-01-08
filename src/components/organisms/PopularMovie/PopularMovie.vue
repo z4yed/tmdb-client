@@ -1,17 +1,17 @@
 <template>
   <div class="popular_movie">
-    <div class="popular_movie__index">1</div>
+    <div class="popular_movie__index">{{ index }}</div>
     <div class="popular_movie__thumb">
-      <img src="../../../assets/images/popular/tlou.png" alt="" />
+      <img :src="poster_path" alt="" />
     </div>
     <div class="popular_movie__info">
       <div class="popular_movie__info__tag"><span>PG-13</span></div>
       <div class="popular_movie__info__title">
-        The Last Of Us In as f lasdflsdf asdf sdfasdf d
+        {{ movie.original_title }}
       </div>
       <div class="popular_movie__info__genres">
         <img src="../../../assets/images/popular/film.svg" alt="" />
-        <MovieGenre :items="['Horror • Thriller']" />
+        <MovieGenre :items="[genres]" />
       </div>
       <div class="popular_movie__info__ratings">
         <Ratings :value="4.2" :genreTexts="['Movie']" />
@@ -23,14 +23,37 @@
 <script>
 import MovieGenre from "@/components/molecules/MovieGenre/MovieGenre.vue";
 import Ratings from "@/components/organisms/Ratings/Ratings.vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
 export default {
   props: {
-    movie: Object,
-    required: true,
+    movie: {
+      type: Object,
+      required: true,
+    },
+    index: {
+      type: Number,
+      required: true,
+    },
   },
   components: {
     MovieGenre,
     Ratings,
+  },
+
+  setup({ movie }) {
+    const store = useStore();
+    const poster_path = `${process.env.VUE_APP_TMDB_FILES_BASE_PATH}${movie.poster_path}`;
+
+    const genres = computed(() => {
+      const movieGenres = store.getters.getGenresByIds(movie.genre_ids);
+      return movieGenres.join(" • ").slice(0, 25);
+    });
+
+    return {
+      poster_path,
+      genres,
+    };
   },
 };
 </script>

@@ -12,8 +12,8 @@
       }"
       class="wrapper"
     >
-      <swiper-slide v-for="item in items" :key="item.id">
-        <Hero :movie="item" />
+      <swiper-slide v-for="movie in nowPlayingMovies" :key="movie.id">
+        <Hero :movie="movie" :key="movie.id" />
       </swiper-slide>
     </swiper>
   </div>
@@ -35,7 +35,8 @@ import "swiper/css/navigation";
 // import required modules
 import { Autoplay, Pagination } from "swiper/modules";
 
-import getNowPlayingMovies from "../../../composables/getNowPlayingMovies";
+import { onMounted, ref } from "vue";
+import makeApiCall from "../../../utils/apiClient";
 
 export default {
   components: {
@@ -45,15 +46,37 @@ export default {
     SwiperSlide,
   },
   setup() {
-    const { items, error, load } = getNowPlayingMovies();
+    const nowPlayingMovies = ref([]);
 
-    load();
+    const fetchData = async () => {
+      const movies_url =
+        process.env.VUE_APP_TMDB_API_BASE_URL +
+        "/movie/now_playing?language=en-US&page=1";
+
+      const headers = {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.VUE_APP_TMDB_API_ACCESS_TOKEN}`,
+      };
+
+      try {
+        const fetchedMovies = await makeApiCall(
+          movies_url,
+          "get",
+          null,
+          headers
+        );
+        nowPlayingMovies.value = fetchedMovies.results;
+      } catch (err) {
+        router.push({ name: "Home" });
+      }
+    };
+
+    onMounted(fetchData);
 
     return {
       modules: [Autoplay, Pagination],
       HERO_AUTOPLAY_DURATION,
-      items,
-      error,
+      nowPlayingMovies,
     };
   },
 };

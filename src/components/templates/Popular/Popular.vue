@@ -22,29 +22,8 @@
         />
       </div>
 
-      <swiper-slide key="1">
-        <PopularMovie />
-      </swiper-slide>
-      <swiper-slide key="2">
-        <PopularMovie />
-      </swiper-slide>
-      <swiper-slide key="3">
-        <PopularMovie />
-      </swiper-slide>
-      <swiper-slide key="4">
-        <PopularMovie />
-      </swiper-slide>
-      <swiper-slide key="5">
-        <PopularMovie />
-      </swiper-slide>
-      <swiper-slide key="6">
-        <PopularMovie />
-      </swiper-slide>
-      <swiper-slide key="7">
-        <PopularMovie />
-      </swiper-slide>
-      <swiper-slide key="8">
-        <PopularMovie />
+      <swiper-slide v-for="(movie, index) in popularMovies" :key="movie.id">
+        <PopularMovie :movie="movie" :index="index + 1" />
       </swiper-slide>
     </Swiper>
   </div>
@@ -54,9 +33,10 @@ import { POPULAR_AUTOPLAY_DURATION } from "../../../utils/constants";
 import { PopularMovie } from "@/components/organisms";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 import { Autoplay } from "swiper/modules";
+import makeApiCall from "../../../utils/apiClient";
 
 export default {
   components: {
@@ -67,6 +47,32 @@ export default {
 
   setup() {
     const swiper = ref(null);
+    const popularMovies = ref([]);
+
+    const fetchData = async () => {
+      const popular_movies_url =
+        process.env.VUE_APP_TMDB_API_BASE_URL + "/movie/popular";
+
+      const headers = {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.VUE_APP_TMDB_API_ACCESS_TOKEN}`,
+      };
+
+      try {
+        const fetchedMovies = await makeApiCall(
+          popular_movies_url,
+          "get",
+          null,
+          headers
+        );
+        popularMovies.value = fetchedMovies.results;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    onMounted(fetchData);
+
     function getRef(swiperInstance) {
       swiper.value = swiperInstance;
     }
@@ -80,6 +86,7 @@ export default {
       POPULAR_AUTOPLAY_DURATION,
       getRef,
       slideToNext,
+      popularMovies,
     };
   },
 };

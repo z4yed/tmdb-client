@@ -22,29 +22,8 @@
         />
       </div>
 
-      <swiper-slide>
-        <MovieCard key="1" :isCompact="true" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="2" :isCompact="true" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="3" :isCompact="true" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="4" :isCompact="true" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="5" :isCompact="true" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="6" :isCompact="true" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="7" :isCompact="true" />
-      </swiper-slide>
-      <swiper-slide>
-        <MovieCard key="8" :isCompact="true" />
+      <swiper-slide v-for="movie in movies" :key="movie.id">
+        <MovieCard :movie="movie" :isCompact="true" />
       </swiper-slide>
     </swiper>
   </div>
@@ -60,6 +39,12 @@ import { ref } from "vue";
 import { Autoplay } from "swiper/modules";
 
 export default {
+  props: {
+    movies: {
+      type: Array,
+      required: true,
+    },
+  },
   components: {
     Swiper,
     SwiperSlide,

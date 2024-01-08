@@ -1,20 +1,31 @@
 <template>
   <div class="cast">
     <div class="cast__profile">
-      <img
-        src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt=""
-      />
+      <img :src="profile_photo_path" alt="Cast Profile Photo" />
     </div>
     <div class="cast__details">
-      <div class="cast__details__name-real">Joel Pedro</div>
-      <div class="cast__details__name-nick">Angelo Gomez</div>
+      <div class="cast__details__name-real">{{ cast.name }}</div>
+      <div class="cast__details__name-nick">{{ cast.character }}</div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    cast: {
+      type: Object,
+      required: true,
+    },
+  },
+  setup({ cast }) {
+    const profile_photo_path = `${process.env.VUE_APP_TMDB_FILES_BASE_PATH}${cast.profile_path}`;
+
+    return {
+      profile_photo_path,
+    };
+  },
+};
 </script>
 
 <style lang="scss">
@@ -22,7 +33,6 @@ export default {};
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 200px;
   gap: 12px;
 
   &__profile {
