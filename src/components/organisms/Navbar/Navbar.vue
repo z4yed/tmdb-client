@@ -35,16 +35,93 @@
       <div class="nav__right-notification">
         <img src="../../../assets/images/icons/bell.png" alt="" />
       </div>
-      <div class="nav__right-profile">
-        <img src="../../../assets/images/icons/profile.png" alt="" />
-        <img src="../../../assets/images/icons/arrow_down.png" alt="" />
+      <div class="nav__right-profile" v-if="isLoggedIn">
+        <img
+          :src="authUser.picture"
+          class="nav__right-profile__photo"
+          alt="pic"
+          @mouseenter="setShowProfileSection"
+        />
+        <img
+          src="../../../assets/images/icons/arrow_down.png"
+          class="nav__right-profile__arrow"
+          alt=""
+          @mouseenter="setShowProfileSection"
+        />
+      </div>
+      <div class="nav__right-login" v-if="!isLoggedIn">
+        <GoogleLogin :callback="handleGoogleLogin" />
+      </div>
+      <div
+        class="nav__right-profile__details"
+        v-if="isLoggedIn && showProfileDetails"
+        @mouseleave="hideProfileSection"
+      >
+        <h3 class="name">Md. Zayed Hassan</h3>
+        <p class="email">zayed.cs3@gmail.com</p>
+        <button class="logout" @click="handleLogout">Logout</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import { decodeCredential } from "vue3-google-login";
+import { googleLogout } from "vue3-google-login";
+import { useStore } from "vuex";
+import { computed, ref } from "vue";
+
+export default {
+  setup() {
+    const store = useStore();
+    const showProfileDetails = ref(false);
+
+    const isLoggedIn = computed(() => {
+      return store.getters.isLoggedIn;
+    });
+    const authUser = computed(() => {
+      return store.state.user;
+    });
+
+    const setShowProfileSection = () => {
+      showProfileDetails.value = true;
+    };
+
+    const hideProfileSection = () => {
+      showProfileDetails.value = false;
+    };
+
+    const handleGoogleLogin = (response) => {
+      const userData = decodeCredential(response.credential);
+      if (userData.email_verified) {
+        const authUserData = {
+          name: userData.name,
+          email: userData.email,
+          picture: userData.picture,
+        };
+
+        store.commit("login", authUserData);
+        localStorage.setItem("authUserData", JSON.stringify(authUserData));
+      }
+    };
+
+    const handleLogout = () => {
+      store.commit("logout");
+      localStorage.removeItem("authUserData");
+      googleLogout();
+    };
+
+    return {
+      handleGoogleLogin,
+      isLoggedIn,
+      authUser,
+      showProfileDetails,
+      setShowProfileSection,
+      hideProfileSection,
+      handleLogout,
+    };
+  },
+};
 </script>
 
 <style lang="scss">
@@ -105,13 +182,67 @@ export default {};
   &__right {
     display: flex;
     gap: 23px;
+    position: relative;
+
+    > div {
+      display: flex;
+      align-items: center;
+    }
 
     &-profile {
       display: flex;
       align-items: center;
       gap: 6px;
 
-      img {
+      &__photo {
+        cursor: pointer;
+        height: 32px;
+        width: 32px;
+        border-radius: 50%;
+      }
+
+      &__arrow {
+        cursor: pointer;
+      }
+    }
+
+    &-profile__details {
+      position: absolute;
+      background: $color-gray;
+      padding: 10px 20px;
+      border-radius: 16px;
+
+      display: flex;
+      flex-direction: column;
+      top: 37px;
+      right: 5px;
+
+      .name {
+        color: $color-black-solid;
+
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 26px; /* 144.444% */
+        letter-spacing: 0.09px;
+      }
+
+      .email {
+        color: $color-black-solid;
+
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px;
+      }
+
+      .logout {
+        margin-top: 10px;
+        width: 100%;
+        border: 0;
+        color: $color-black-solid;
+        font-weight: bold;
+        padding: 6px;
         cursor: pointer;
       }
     }

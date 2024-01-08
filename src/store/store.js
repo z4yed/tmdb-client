@@ -3,15 +3,15 @@ import makeApiCall from "@/utils/apiClient";
 
 export const store = createStore({
   state: {
-    user: {
-      name: "Zayed",
-      email: "zayed.cs3@gmail.com",
-    },
+    user: null,
     genres: [],
     favoriteList: [],
     watchList: [],
   },
   getters: {
+    isLoggedIn: (state) => {
+      return Boolean(state.user);
+    },
     getGenresByIds: (state) => (genreIds) => {
       const genres = [];
 
@@ -37,6 +37,12 @@ export const store = createStore({
     },
   },
   mutations: {
+    login: (state, payload) => {
+      state.user = payload;
+    },
+    logout: (state) => {
+      state.user = null;
+    },
     setGenres: (state, payload) => {
       state.genres = payload;
     },

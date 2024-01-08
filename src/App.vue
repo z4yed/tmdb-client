@@ -19,6 +19,14 @@ export default {
     store.dispatch("setFavorites");
     store.dispatch("setWatchList");
 
+    if (localStorage.getItem("authUserData")) {
+      const authUser = JSON.parse(localStorage.getItem("authUserData"));
+
+      if (authUser.name && authUser.email && authUser.picture) {
+        store.commit("login", authUser);
+      }
+    }
+
     return {
       store,
     };
