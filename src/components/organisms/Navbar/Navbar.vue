@@ -226,12 +226,11 @@ export default {
     }
 
     &-login {
+      padding: 2px;
       &__highlight {
+        position: relative;
         border: 2px solid #ff1e00;
-        padding: 2px 4px;
         border-radius: 8px;
-        transform: scale(1.05);
-        transition: transform 0.2s ease-in-out;
       }
     }
 
