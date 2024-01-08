@@ -22,29 +22,8 @@
         />
       </div>
 
-      <swiper-slide>
-        <SeriesCard key="1" :isCompact="true" />
-      </swiper-slide>
-      <swiper-slide>
-        <SeriesCard key="2" :isCompact="true" />
-      </swiper-slide>
-      <swiper-slide>
-        <SeriesCard key="3" :isCompact="true" />
-      </swiper-slide>
-      <swiper-slide>
-        <SeriesCard key="4" :isCompact="true" />
-      </swiper-slide>
-      <swiper-slide>
-        <SeriesCard key="5" :isCompact="true" />
-      </swiper-slide>
-      <swiper-slide>
-        <SeriesCard key="6" :isCompact="true" />
-      </swiper-slide>
-      <swiper-slide>
-        <SeriesCard key="7" :isCompact="true" />
-      </swiper-slide>
-      <swiper-slide>
-        <SeriesCard key="8" :isCompact="true" />
+      <swiper-slide v-for="series in watchList" :key="series.id">
+        <SeriesCard key="1" :series="series" :isCompact="true" />
       </swiper-slide>
     </swiper>
   </div>
@@ -54,9 +33,8 @@ import { WATCH_LIST_AUTOPLAY_DURATION } from "../../../utils/constants";
 import { SeriesCard } from "@/components/organisms";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
-import { ref } from "vue";
-
-// import required modules
+import { ref, computed } from "vue";
+import { useStore } from "vuex";
 import { Autoplay } from "swiper/modules";
 
 export default {
@@ -67,6 +45,12 @@ export default {
   },
   setup() {
     const swiper = ref(null);
+    const store = useStore();
+
+    const watchList = computed(() => {
+      return store.state.watchList;
+    });
+
     function getRef(swiperInstance) {
       swiper.value = swiperInstance;
     }
@@ -79,6 +63,7 @@ export default {
       slideToNext,
       modules: [Autoplay],
       WATCH_LIST_AUTOPLAY_DURATION,
+      watchList,
     };
   },
 };

@@ -16,6 +16,8 @@ export default {
   setup() {
     const store = useStore();
     store.dispatch("setGenres");
+    store.dispatch("setFavorites");
+    store.dispatch("setWatchList");
 
     return {
       store,

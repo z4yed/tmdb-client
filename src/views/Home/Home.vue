@@ -3,8 +3,8 @@
   <div class="home_content">
     <PopularSeriesList />
     <JustRelease />
-    <!-- <WatchList /> -->
-    <!-- <Likes /> -->
+    <WatchList />
+    <Likes />
     <Action />
   </div>
 </template>

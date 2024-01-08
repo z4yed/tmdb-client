@@ -50,12 +50,12 @@ export default {
     const poster_path = `${process.env.VUE_APP_TMDB_FILES_BASE_PATH}${series.poster_path}`;
 
     const genres = computed(() => {
-      const genres = store.getters.getGenresByIds(series.genre_ids);
+      const genres = store.getters.getGenresByIds(series.genre_ids ?? []);
       return genres.join(" • ").slice(0, 25);
     });
 
     const genres_min = computed(() => {
-      const genres = store.getters.getGenresByIds(series.genre_ids);
+      const genres = store.getters.getGenresByIds(series.genre_ids ?? []);
       return genres.join(" • ").slice(0, 15);
     });
 
