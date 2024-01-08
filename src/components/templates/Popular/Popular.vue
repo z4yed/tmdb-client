@@ -22,8 +22,8 @@
         />
       </div>
 
-      <swiper-slide v-for="(movie, index) in popularMovies" :key="movie.id">
-        <PopularMovie :movie="movie" :index="index + 1" />
+      <swiper-slide v-for="(series, index) in popularSeries" :key="series.id">
+        <PopularMovie :series="series" :index="index + 1" />
       </swiper-slide>
     </Swiper>
   </div>
@@ -47,11 +47,11 @@ export default {
 
   setup() {
     const swiper = ref(null);
-    const popularMovies = ref([]);
+    const popularSeries = ref([]);
 
     const fetchData = async () => {
       const popular_movies_url =
-        process.env.VUE_APP_TMDB_API_BASE_URL + "/movie/popular";
+        process.env.VUE_APP_TMDB_API_BASE_URL + "/tv/popular";
 
       const headers = {
         accept: "application/json",
@@ -65,7 +65,7 @@ export default {
           null,
           headers
         );
-        popularMovies.value = fetchedMovies.results;
+        popularSeries.value = fetchedMovies.results;
       } catch (err) {
         console.log(err);
       }
@@ -86,7 +86,7 @@ export default {
       POPULAR_AUTOPLAY_DURATION,
       getRef,
       slideToNext,
-      popularMovies,
+      popularSeries,
     };
   },
 };

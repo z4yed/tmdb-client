@@ -2,19 +2,23 @@
   <div class="popular_movie">
     <div class="popular_movie__index">{{ index }}</div>
     <div class="popular_movie__thumb">
-      <img :src="poster_path" alt="" />
+      <router-link :to="{ name: 'MovieDetails', params: { id: series.id } }">
+        <img :src="poster_path" alt="" />
+      </router-link>
     </div>
     <div class="popular_movie__info">
-      <div class="popular_movie__info__tag"><span>PG-13</span></div>
+      <div class="popular_movie__info__tag">
+        <span>{{ series.original_language }}</span>
+      </div>
       <div class="popular_movie__info__title">
-        {{ movie.original_title }}
+        {{ series.name }}
       </div>
       <div class="popular_movie__info__genres">
         <img src="../../../assets/images/popular/film.svg" alt="" />
         <MovieGenre :items="[genres]" />
       </div>
       <div class="popular_movie__info__ratings">
-        <Ratings :value="4.2" :genreTexts="['Movie']" />
+        <Ratings :value="series.vote_average" :genreTexts="genres_min" />
       </div>
     </div>
   </div>
@@ -27,7 +31,7 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 export default {
   props: {
-    movie: {
+    series: {
       type: Object,
       required: true,
     },
@@ -41,18 +45,24 @@ export default {
     Ratings,
   },
 
-  setup({ movie }) {
+  setup({ series }) {
     const store = useStore();
-    const poster_path = `${process.env.VUE_APP_TMDB_FILES_BASE_PATH}${movie.poster_path}`;
+    const poster_path = `${process.env.VUE_APP_TMDB_FILES_BASE_PATH}${series.poster_path}`;
 
     const genres = computed(() => {
-      const movieGenres = store.getters.getGenresByIds(movie.genre_ids);
+      const movieGenres = store.getters.getGenresByIds(series.genre_ids);
       return movieGenres.join(" • ").slice(0, 25);
+    });
+
+    const genres_min = computed(() => {
+      const movieGenres = store.getters.getGenresByIds(series.genre_ids);
+      return movieGenres.join(" • ").slice(0, 15);
     });
 
     return {
       poster_path,
       genres,
+      genres_min,
     };
   },
 };

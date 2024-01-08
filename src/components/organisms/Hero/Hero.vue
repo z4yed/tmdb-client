@@ -30,7 +30,7 @@
         <span>{{ movie.adult ? "Adult" : "All ages" }}</span>
       </div>
       <div class="hero__description-title">
-        <h2>{{ movie.original_title }}</h2>
+        <h2>{{ movie.name }}</h2>
       </div>
       <div class="hero__description-others">
         <span> {{ genresForDetailsPage() }}</span>
@@ -109,7 +109,12 @@ export default {
 
     const genresForDetailsPage = () => {
       if (isDetailsPage) {
-        return movie.genres.map((genre) => genre.name).join(" • ");
+        const output = [
+          movie.number_of_seasons + " Seasons",
+          movie.number_of_episodes + " Episodes",
+          ...movie.genres.map((genre) => genre.name),
+        ];
+        return output.map((value) => value).join(" • ");
       }
     };
 

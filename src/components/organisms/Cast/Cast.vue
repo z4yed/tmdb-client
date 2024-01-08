@@ -1,7 +1,7 @@
 <template>
   <div class="cast">
     <div class="cast__profile">
-      <img :src="profile_photo_path" alt="Cast Profile Photo" />
+      <img :src="profile_photo_path" alt="404" />
     </div>
     <div class="cast__details">
       <div class="cast__details__name-real">{{ cast.name }}</div>
