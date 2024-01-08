@@ -1,36 +1,101 @@
 <template>
   <div class="details_header">
     <Navbar />
-    <Hero :isDetailsPage="true" />
+    <Hero :isDetailsPage="true" :movie="movie" v-if="movie" :key="movie.id" />
   </div>
-  <div class="details_content">
+  <div class="details_content" v-if="movie">
     <div class="details_content__story">
       <h2 class="">Story Line</h2>
       <p>
-        The Last of Us is an American post-apocalyptic drama television series
-        created by Craig Mazin and Neil Druckmann for HBO. Based on the 2013
-        video game developed by Naughty Dog, the series is set in 2023, twenty
-        years into a pandemic caused by a mass fungal infection, which causes
-        its hosts to transform into zombie-like creatures and collapses society.
-        The series follows Joel (Pedro Pascal), a smuggler tasked with escorting
-        the immune teenager Ellie (Bella Ramsey) across a post-apocalyptic
-        United States....
+        {{ movie.overview }}
         <span class="more"> More </span>
       </p>
     </div>
-    <TopCasts />
-    <Recommendation />
+    <TopCasts :casts="casts" />
+    <Recommendation :movies="similarMovies" />
   </div>
 </template>
 <script>
 import { Navbar, Hero } from "@/components/organisms";
 import { TopCasts, Recommendation } from "@/components/templates";
+import { useRoute, useRouter } from "vue-router";
+import { ref, onMounted, watch } from "vue";
+import makeApiCall from "../../utils/apiClient";
+
 export default {
+  props: {
+    id: {
+      type: String,
+    },
+  },
   components: {
     Navbar,
     Hero,
     TopCasts,
     Recommendation,
+  },
+  setup(props) {
+    const route = useRoute();
+    const router = useRouter();
+    const movie = ref(null);
+    const casts = ref(null);
+    const similarMovies = ref(null);
+
+    const fetchData = async () => {
+      const details_url =
+        process.env.VUE_APP_TMDB_API_BASE_URL + "/movie/" + props.id;
+
+      const credits_url =
+        process.env.VUE_APP_TMDB_API_BASE_URL +
+        "/movie/" +
+        props.id +
+        "/credits";
+
+      const similar_url =
+        process.env.VUE_APP_TMDB_API_BASE_URL +
+        "/movie/" +
+        props.id +
+        "/similar";
+
+      const headers = {
+        accept: "application/json",
+        Authorization: `Bearer ${process.env.VUE_APP_TMDB_API_ACCESS_TOKEN}`,
+      };
+
+      try {
+        let movieCasts = await makeApiCall(credits_url, "get", null, headers);
+        let movieDetails = await makeApiCall(details_url, "get", null, headers);
+        let recommendations = await makeApiCall(
+          similar_url,
+          "get",
+          null,
+          headers
+        );
+
+        movie.value = movieDetails;
+        casts.value = movieCasts.cast;
+        similarMovies.value = recommendations.results;
+      } catch (err) {
+        router.push({ name: "Home" });
+      }
+    };
+
+    watch(
+      () => route.params,
+      () => {
+        window.scrollTo(0, 0);
+        fetchData();
+      },
+      { immediate: true }
+    );
+
+    onMounted(fetchData);
+
+    return {
+      movie,
+      casts,
+      similarMovies,
+    };
   },
 };
 </script>

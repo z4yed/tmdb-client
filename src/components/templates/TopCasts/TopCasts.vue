@@ -22,44 +22,8 @@
         />
       </div>
 
-      <swiper-slide key="1">
-        <Cast />
-      </swiper-slide>
-      <swiper-slide key="2">
-        <Cast />
-      </swiper-slide>
-      <swiper-slide key="3">
-        <Cast />
-      </swiper-slide>
-      <swiper-slide key="4">
-        <Cast />
-      </swiper-slide>
-      <swiper-slide key="5">
-        <Cast />
-      </swiper-slide>
-      <swiper-slide key="6">
-        <Cast />
-      </swiper-slide>
-      <swiper-slide key="7">
-        <Cast />
-      </swiper-slide>
-      <swiper-slide key="8">
-        <Cast />
-      </swiper-slide>
-      <swiper-slide key="9">
-        <Cast />
-      </swiper-slide>
-      <swiper-slide key="10">
-        <Cast />
-      </swiper-slide>
-      <swiper-slide key="11">
-        <Cast />
-      </swiper-slide>
-      <swiper-slide key="12">
-        <Cast />
-      </swiper-slide>
-      <swiper-slide key="13">
-        <Cast />
+      <swiper-slide v-for="cast in casts" :key="cast.id">
+        <Cast :cast="cast" />
       </swiper-slide>
     </Swiper>
   </div>
@@ -74,6 +38,12 @@ import { ref } from "vue";
 import { Autoplay } from "swiper/modules";
 
 export default {
+  props: {
+    casts: {
+      type: Array,
+      required: true,
+    },
+  },
   components: {
     Swiper,
     SwiperSlide,

@@ -5,13 +5,13 @@
     </div>
     <div class="hero__description" v-if="!isDetailsPage">
       <div class="hero__description-season">
-        <span>Season 3</span>
+        <span>{{ movie.adult ? "Adult" : "All ages" }}</span>
       </div>
       <div class="hero__description-title">
         <h2>{{ movie.original_title }}</h2>
       </div>
       <div class="hero__description-others">
-        <span> {{ genres }}</span>
+        <span> {{ isDetailsPage ? genresForDetailsPage : genres }}</span>
       </div>
       <div class="hero__description-details">
         <p>
@@ -27,13 +27,13 @@
 
     <div class="hero__description" v-if="isDetailsPage">
       <div class="hero__description-season">
-        <span>Season 3</span>
+        <span>{{ movie.adult ? "Adult" : "All ages" }}</span>
       </div>
       <div class="hero__description-title">
-        <h2>The Last of Us</h2>
+        <h2>{{ movie.original_title }}</h2>
       </div>
       <div class="hero__description-others">
-        <span>{{ genres }}</span>
+        <span> {{ genresForDetailsPage() }}</span>
       </div>
       <div class="hero__description-actions" v-if="!isDetailsPage">
         <Button imageSource="play.png" text="Play Now" />
@@ -54,7 +54,7 @@
       </div>
     </div>
 
-    <div class="hero__overlay" @click="navigateToDetails(4)"></div>
+    <div class="hero__overlay" @click="navigateToDetails(movie.id)"></div>
   </div>
 </template>
 
@@ -82,15 +82,18 @@ export default {
     const router = useRouter();
     const store = useStore();
 
-    const { movie } = props;
+    const { movie, isDetailsPage } = props;
+
     const movieBanner =
-      process.env.VUE_APP_TMDB_FILES_BASE_PATH + movie.backdrop_path;
+      process.env.VUE_APP_TMDB_FILES_BASE_PATH + movie?.backdrop_path;
 
     const navigateToDetails = (movieId) => {
-      router.push({
-        name: "MovieDetails",
-        params: { id: movieId },
-      });
+      if (!isDetailsPage) {
+        router.push({
+          name: "MovieDetails",
+          params: { id: movieId },
+        });
+      }
     };
 
     const authUser = computed(() => {
@@ -98,12 +101,17 @@ export default {
     });
 
     const genres = computed(() => {
-      const movieGenres = store.getters.getGenresByIds(movie.genre_ids);
-
-      console.log(movieGenres);
-      // apply join operation
-      return movieGenres.join(" • ");
+      if (!isDetailsPage) {
+        const movieGenres = store.getters.getGenresByIds(movie.genre_ids ?? []);
+        return movieGenres.join(" • ");
+      }
     });
+
+    const genresForDetailsPage = () => {
+      if (isDetailsPage) {
+        return movie.genres.map((genre) => genre.name).join(" • ");
+      }
+    };
 
     return {
       router,
@@ -112,6 +120,7 @@ export default {
       movieBanner,
       authUser,
       genres,
+      genresForDetailsPage,
     };
   },
 };

@@ -1,15 +1,16 @@
 <template>
   <div class="movie_card" :class="isCompact ? 'compact' : ''">
     <div class="movie_card__thumbnail">
-      <img
-        src="https://images.unsplash.com/photo-1682686580036-b5e25932ce9a?q=80&w=1975&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt=""
-      />
+      <router-link :to="{ name: 'MovieDetails', params: { id: movie.id } }">
+        <img :src="movie_poster_path" alt="" @click="navigateToDetails" />
+      </router-link>
     </div>
     <div class="movie_card__description">
-      <div class="movie_card__description-title">No mercy</div>
+      <div class="movie_card__description-title">
+        {{ movie.original_title }}
+      </div>
       <div class="movie_card__description-ratings">
-        <Ratings :value="4.9" :genreTexts="['Horror • Thriller']" />
+        <Ratings :value="movie.vote_average" :genreTexts="[genres]" />
       </div>
     </div>
     <div v-if="isCompact == false" class="movie_card__favourite">
@@ -20,14 +21,38 @@
 
 <script>
 import { Ratings } from "..";
+import { useStore } from "vuex";
+import { computed } from "vue";
+import { useRouter } from "vue-router";
 export default {
   props: {
+    movie: {
+      type: Object,
+      required: true,
+    },
     isCompact: {
       type: Boolean,
       required: false,
     },
   },
   components: { Ratings },
+  setup({ movie }) {
+    const store = useStore();
+    const router = useRouter();
+
+    const movie_poster_path = `${process.env.VUE_APP_TMDB_FILES_BASE_PATH}${movie.poster_path}`;
+
+    const genres = computed(() => {
+      const movieGenres = store.getters.getGenresByIds(movie.genre_ids);
+      return movieGenres.join(" • ");
+    });
+
+    return {
+      movie_poster_path,
+      genres,
+      router,
+    };
+  },
 };
 </script>
 
@@ -48,10 +73,12 @@ $root: ".movie_card";
       height: 100%;
       object-fit: cover;
       border-radius: 16px;
+      cursor: pointer;
     }
   }
 
   &__description {
+    overflow: hidden;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -102,6 +129,7 @@ $root: ".movie_card";
   }
 
   #{$root}__description {
+    overflow: hidden;
     margin-top: 12px;
     position: unset;
     height: unset;

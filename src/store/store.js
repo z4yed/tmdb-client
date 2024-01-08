@@ -12,7 +12,7 @@ export const store = createStore({
     getGenresByIds: (state) => (genreIds) => {
       const genres = [];
 
-      state.genres.forEach((genre) => {
+      state.genres.forEach((genre, index) => {
         if (genreIds.includes(genre.id)) {
           genres.push(genre.name);
         }
