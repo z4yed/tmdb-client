@@ -49,7 +49,11 @@
           @mouseenter="setShowProfileSection"
         />
       </div>
-      <div class="nav__right-login" v-if="!isLoggedIn">
+      <div
+        class="nav__right-login"
+        v-if="!isLoggedIn"
+        :class="highlightLogin ? 'nav__right-login__highlight' : ''"
+      >
         <GoogleLogin :callback="handleGoogleLogin" />
       </div>
       <div
@@ -69,7 +73,7 @@
 import { decodeCredential } from "vue3-google-login";
 import { googleLogout } from "vue3-google-login";
 import { useStore } from "vuex";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 
 export default {
   setup() {
@@ -79,6 +83,20 @@ export default {
     const isLoggedIn = computed(() => {
       return store.getters.isLoggedIn;
     });
+
+    const highlightLogin = computed(() => {
+      return store.state.highlightLogin;
+    });
+
+    watch(
+      () => store.state.highlightLogin,
+      function (current) {
+        if (current) {
+          store.dispatch("hideLoginHighlight");
+        }
+      }
+    );
+
     const authUser = computed(() => {
       return store.state.user;
     });
@@ -119,6 +137,7 @@ export default {
       setShowProfileSection,
       hideProfileSection,
       handleLogout,
+      highlightLogin,
     };
   },
 };
@@ -203,6 +222,16 @@ export default {
 
       &__arrow {
         cursor: pointer;
+      }
+    }
+
+    &-login {
+      &__highlight {
+        border: 2px solid #ff1e00;
+        padding: 2px 4px;
+        border-radius: 8px;
+        transform: scale(1.05);
+        transition: transform 0.2s ease-in-out;
       }
     }
 

@@ -8,6 +8,7 @@
 <script>
 import { Footer } from "@/components/organisms";
 import { useStore } from "vuex";
+import { watch } from "vue";
 
 export default {
   components: {
@@ -16,8 +17,16 @@ export default {
   setup() {
     const store = useStore();
     store.dispatch("setGenres");
-    store.dispatch("setFavorites");
-    store.dispatch("setWatchList");
+
+    watch(
+      () => store.state.user,
+      function (current) {
+        if (current) {
+          store.dispatch("setFavorites");
+          store.dispatch("setWatchList");
+        }
+      }
+    );
 
     if (localStorage.getItem("authUserData")) {
       const authUser = JSON.parse(localStorage.getItem("authUserData"));

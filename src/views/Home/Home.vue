@@ -3,8 +3,8 @@
   <div class="home_content">
     <PopularSeriesList />
     <JustRelease />
-    <WatchList />
-    <Likes />
+    <WatchList v-if="isLoggedIn" />
+    <Likes v-if="isLoggedIn" />
     <Action />
   </div>
 </template>
@@ -18,6 +18,8 @@ import {
   Likes,
   Action,
 } from "@/components/templates";
+import { computed } from "vue";
+import { useStore } from "vuex";
 export default {
   components: {
     Header,
@@ -26,6 +28,17 @@ export default {
     WatchList,
     Likes,
     Action,
+  },
+
+  setup() {
+    const store = useStore();
+    const isLoggedIn = computed(() => {
+      return store.getters.isLoggedIn;
+    });
+
+    return {
+      isLoggedIn,
+    };
   },
 };
 </script>

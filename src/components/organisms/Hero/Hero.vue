@@ -119,7 +119,11 @@ export default {
     });
 
     const modifyFavoritesList = (status) => {
-      store.dispatch("modifyFavorites", { series, status });
+      if (Boolean(store.state.user)) {
+        store.dispatch("modifyFavorites", { series, status });
+      } else {
+        store.commit("highLightLogin", true);
+      }
     };
 
     const isInWatchList = computed(() => {
@@ -127,7 +131,11 @@ export default {
     });
 
     const modifyWatchList = (status) => {
-      store.dispatch("modifyWatchList", { series, status });
+      if (Boolean(store.state.user)) {
+        store.dispatch("modifyWatchList", { series, status });
+      } else {
+        store.commit("highLightLogin", true);
+      }
     };
 
     const genres = computed(() => {
