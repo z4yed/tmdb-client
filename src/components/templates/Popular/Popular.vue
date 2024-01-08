@@ -23,14 +23,14 @@
       </div>
 
       <swiper-slide v-for="(series, index) in popularSeries" :key="series.id">
-        <PopularMovie :series="series" :index="index + 1" />
+        <PopularSeries :series="series" :index="index + 1" />
       </swiper-slide>
     </Swiper>
   </div>
 </template>
 <script>
 import { POPULAR_AUTOPLAY_DURATION } from "../../../utils/constants";
-import { PopularMovie } from "@/components/organisms";
+import { PopularSeries } from "@/components/organisms";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { onMounted, ref } from "vue";
@@ -42,7 +42,7 @@ export default {
   components: {
     Swiper,
     SwiperSlide,
-    PopularMovie,
+    PopularSeries,
   },
 
   setup() {
@@ -50,7 +50,7 @@ export default {
     const popularSeries = ref([]);
 
     const fetchData = async () => {
-      const popular_movies_url =
+      const popularSeriesUrl =
         process.env.VUE_APP_TMDB_API_BASE_URL + "/tv/popular";
 
       const headers = {
@@ -59,13 +59,13 @@ export default {
       };
 
       try {
-        const fetchedMovies = await makeApiCall(
-          popular_movies_url,
+        const fetchedSeries = await makeApiCall(
+          popularSeriesUrl,
           "get",
           null,
           headers
         );
-        popularSeries.value = fetchedMovies.results;
+        popularSeries.value = fetchedSeries.results;
       } catch (err) {
         console.log(err);
       }

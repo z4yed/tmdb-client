@@ -1,16 +1,16 @@
 <template>
   <div class="movie_card" :class="isCompact ? 'compact' : ''">
     <div class="movie_card__thumbnail">
-      <router-link :to="{ name: 'MovieDetails', params: { id: movie.id } }">
-        <img :src="movie_poster_path" alt="" @click="navigateToDetails" />
+      <router-link :to="{ name: 'MovieDetails', params: { id: series.id } }">
+        <img :src="series_poster_path" alt="" @click="navigateToDetails" />
       </router-link>
     </div>
     <div class="movie_card__description">
       <div class="movie_card__description-title">
-        {{ movie.original_title }}
+        {{ series.name }}
       </div>
       <div class="movie_card__description-ratings">
-        <Ratings :value="movie.vote_average" :genreTexts="[genres]" />
+        <Ratings :value="series.vote_average" :genreTexts="[genres]" />
       </div>
     </div>
     <div v-if="isCompact == false" class="movie_card__favourite">
@@ -26,7 +26,7 @@ import { computed } from "vue";
 import { useRouter } from "vue-router";
 export default {
   props: {
-    movie: {
+    series: {
       type: Object,
       required: true,
     },
@@ -36,19 +36,19 @@ export default {
     },
   },
   components: { Ratings },
-  setup({ movie }) {
+  setup({ series }) {
     const store = useStore();
     const router = useRouter();
 
-    const movie_poster_path = `${process.env.VUE_APP_TMDB_FILES_BASE_PATH}${movie.poster_path}`;
+    const series_poster_path = `${process.env.VUE_APP_TMDB_FILES_BASE_PATH}${series.poster_path}`;
 
     const genres = computed(() => {
-      const movieGenres = store.getters.getGenresByIds(movie.genre_ids);
-      return movieGenres.join(" • ");
+      const movieGenres = store.getters.getGenresByIds(series.genre_ids);
+      return movieGenres.join(" • ").slice(0, 25);
     });
 
     return {
-      movie_poster_path,
+      series_poster_path,
       genres,
       router,
     };

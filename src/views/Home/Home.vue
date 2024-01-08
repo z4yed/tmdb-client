@@ -1,18 +1,18 @@
 <template>
   <Header />
   <div class="home_content">
-    <PopularMovies />
-    <!-- <JustRelease /> -->
+    <PopularSeriesList />
+    <JustRelease />
     <!-- <WatchList /> -->
     <!-- <Likes /> -->
-    <!-- <Action /> -->
+    <Action />
   </div>
 </template>
 
 <script>
 import {
   Header,
-  PopularMovies,
+  PopularSeriesList,
   JustRelease,
   WatchList,
   Likes,
@@ -21,7 +21,7 @@ import {
 export default {
   components: {
     Header,
-    PopularMovies,
+    PopularSeriesList,
     JustRelease,
     WatchList,
     Likes,
