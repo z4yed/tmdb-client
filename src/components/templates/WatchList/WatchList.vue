@@ -7,6 +7,7 @@
       :slidesPerView="'auto'"
       :spaceBetween="16"
       :loop="true"
+      v-if="watchList.length"
       :autoplay="{
         delay: WATCH_LIST_AUTOPLAY_DURATION,
         disableOnInteraction: false,

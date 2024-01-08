@@ -7,6 +7,7 @@
       :slidesPerView="'auto'"
       :spaceBetween="16"
       :loop="true"
+      v-if="favoriteSeriesList.length"
       :autoplay="{
         delay: LIKES_AUTOPLAY_DURATION,
         disableOnInteraction: false,

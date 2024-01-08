@@ -10,6 +10,7 @@
         delay: HERO_AUTOPLAY_DURATION,
         disableOnInteraction: false,
       }"
+      v-if="trendingSeries.length"
       class="wrapper"
     >
       <swiper-slide v-for="series in trendingSeries" :key="series.id">
