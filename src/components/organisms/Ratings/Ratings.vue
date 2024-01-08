@@ -2,12 +2,12 @@
   <div class="ratings">
     <img src="../../../assets/images/icons/star.png" alt="" />
     <div class="ratings__value">{{ value }}</div>
-    <MovieGenre :items="genreTexts" :hasLeadingSlash="true" />
+    <Genre :items="genreTexts" :hasLeadingSlash="true" />
   </div>
 </template>
 
 <script>
-import { MovieGenre } from "@/components/molecules";
+import { Genre } from "@/components/molecules";
 
 export default {
   props: {
@@ -21,7 +21,7 @@ export default {
     },
   },
   components: {
-    MovieGenre,
+    Genre,
   },
   setup(props) {},
 };

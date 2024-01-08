@@ -53,7 +53,7 @@ export default {
       const creditsUrl =
         process.env.VUE_APP_TMDB_API_BASE_URL + "/tv/" + props.id + "/credits";
 
-      const recommendationMoviesUrl =
+      const recommendationSeriesUrl =
         process.env.VUE_APP_TMDB_API_BASE_URL + "/tv/" + props.id + "/similar";
 
       const headers = {
@@ -65,7 +65,7 @@ export default {
         let seriesDetails = await makeApiCall(detailsUrl, "get", null, headers);
         let seriesCasts = await makeApiCall(creditsUrl, "get", null, headers);
         let recommendations = await makeApiCall(
-          recommendationMoviesUrl,
+          recommendationSeriesUrl,
           "get",
           null,
           headers

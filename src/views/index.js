@@ -1,4 +1,4 @@
 import Home from "./Home/Home.vue";
-import MovieDetails from "./MovieDetails/MovieDetails.vue";
+import SeriesDetails from "./SeriesDetails/SeriesDetails.vue";
 
-export { Home, MovieDetails };
+export { Home, SeriesDetails };

@@ -1,19 +1,19 @@
 <template>
-  <div class="movie_card" :class="isCompact ? 'compact' : ''">
-    <div class="movie_card__thumbnail">
-      <router-link :to="{ name: 'MovieDetails', params: { id: series.id } }">
+  <div class="series_card" :class="isCompact ? 'compact' : ''">
+    <div class="series_card__thumbnail">
+      <router-link :to="{ name: 'SeriesDetails', params: { id: series.id } }">
         <img :src="series_poster_path" alt="" @click="navigateToDetails" />
       </router-link>
     </div>
-    <div class="movie_card__description">
-      <div class="movie_card__description-title">
+    <div class="series_card__description">
+      <div class="series_card__description-title">
         {{ series.name }}
       </div>
-      <div class="movie_card__description-ratings">
+      <div class="series_card__description-ratings">
         <Ratings :value="series.vote_average" :genreTexts="[genres]" />
       </div>
     </div>
-    <div v-if="isCompact == false" class="movie_card__favourite">
+    <div v-if="isCompact == false" class="series_card__favourite">
       <img src="../../../assets/images/icons/heart.svg" alt="" />
     </div>
   </div>
@@ -43,8 +43,8 @@ export default {
     const series_poster_path = `${process.env.VUE_APP_TMDB_FILES_BASE_PATH}${series.poster_path}`;
 
     const genres = computed(() => {
-      const movieGenres = store.getters.getGenresByIds(series.genre_ids);
-      return movieGenres.join(" • ").slice(0, 25);
+      const genres = store.getters.getGenresByIds(series.genre_ids);
+      return genres.join(" • ").slice(0, 25);
     });
 
     return {
@@ -57,7 +57,7 @@ export default {
 </script>
 
 <style lang="scss">
-$root: ".movie_card";
+$root: ".series_card";
 #{$root} {
   width: 280px;
   height: 412px;

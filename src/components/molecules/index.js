@@ -1,4 +1,4 @@
 import Button from "./Button/Button.vue";
-import MovieGenre from "./MovieGenre/MovieGenre.vue";
+import Genre from "./Genre/Genre.vue";
 
-export { Button, MovieGenre };
+export { Button, Genre };
