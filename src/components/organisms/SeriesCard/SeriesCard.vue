@@ -62,7 +62,12 @@ export default {
     });
 
     const modifyFavoritesList = (status) => {
-      store.dispatch("modifyFavorites", { series, status });
+      if (Boolean(store.state.user)) {
+        store.dispatch("modifyFavorites", { series, status });
+      } else {
+        window.scroll(0, 0);
+        store.commit("highLightLogin", true);
+      }
     };
 
     const images = require.context(
