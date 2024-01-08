@@ -11,7 +11,7 @@
         <h2>{{ movie.original_title }}</h2>
       </div>
       <div class="hero__description-others">
-        <span>2h40m • 2022 • Fantasy • Actions</span>
+        <span> {{ genres }}</span>
       </div>
       <div class="hero__description-details">
         <p>
@@ -33,7 +33,7 @@
         <h2>The Last of Us</h2>
       </div>
       <div class="hero__description-others">
-        <span>2h40m • 2022 • Fantasy • Actions</span>
+        <span>{{ genres }}</span>
       </div>
       <div class="hero__description-actions" v-if="!isDetailsPage">
         <Button imageSource="play.png" text="Play Now" />
@@ -61,6 +61,9 @@
 <script>
 import { Button } from "../../molecules";
 import { useRouter } from "vue-router";
+import { computed } from "vue";
+import { useStore } from "vuex";
+
 export default {
   props: {
     movie: {
@@ -77,6 +80,8 @@ export default {
   },
   setup(props) {
     const router = useRouter();
+    const store = useStore();
+
     const { movie } = props;
     const movieBanner =
       process.env.VUE_APP_TMDB_FILES_BASE_PATH + movie.backdrop_path;
@@ -88,11 +93,25 @@ export default {
       });
     };
 
+    const authUser = computed(() => {
+      return store.state.user;
+    });
+
+    const genres = computed(() => {
+      const movieGenres = store.getters.getGenresByIds(movie.genre_ids);
+
+      console.log(movieGenres);
+      // apply join operation
+      return movieGenres.join(" • ");
+    });
+
     return {
       router,
       movie,
       navigateToDetails,
       movieBanner,
+      authUser,
+      genres,
     };
   },
 };
