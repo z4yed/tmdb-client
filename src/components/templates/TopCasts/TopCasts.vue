@@ -96,5 +96,23 @@ export default {
     padding: 8px 20px;
     height: 52px;
   }
+
+  @include respond-to("<medium") {
+    position: relative;
+
+    &__title {
+      font-size: 22px;
+    }
+
+    &__series {
+      margin-top: 18px;
+    }
+
+    .right_navigation {
+      @extend .right_navigation;
+      padding: 8px 20px;
+      height: 52px;
+    }
+  }
 }
 </style>

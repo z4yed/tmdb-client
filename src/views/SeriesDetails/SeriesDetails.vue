@@ -8,17 +8,17 @@
       :key="series.id"
     />
   </div>
-  <!-- <div class="details_content" v-if="series"> -->
-  <!-- <div class="details_content__story"> -->
-  <!-- <h2 class="">Story Line</h2> -->
-  <!-- <p> -->
-  <!-- {{ series.overview }} -->
-  <!-- <span class="more"> More </span> -->
-  <!-- </p> -->
-  <!-- </div> -->
-  <!-- <TopCasts :casts="casts" v-if="casts.length" /> -->
-  <!-- <Recommendation /:seriesList="similarSeries" v-if="similarSeries.length" /> -->
-  <!-- </div> -->
+  <div class="details_content" v-if="series">
+    <div class="details_content__story">
+      <h2 class="">Story Line</h2>
+      <p>
+        {{ series.overview }}
+        <!-- <span class="more"> More </span> -->
+      </p>
+    </div>
+    <TopCasts :casts="casts" v-if="casts.length" />
+    <Recommendation :seriesList="similarSeries" v-if="similarSeries.length" />
+  </div>
 </template>
 <script>
 import { Navbar, Hero } from "@/components/organisms";
@@ -142,6 +142,14 @@ export default {
 @include respond-to("<medium") {
   .details_header {
     min-height: 500px;
+  }
+
+  .details_content {
+    padding-left: 20px;
+
+    &__story {
+      padding: 20px;
+    }
   }
 }
 </style>
