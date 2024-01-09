@@ -2,7 +2,7 @@
   <Header />
   <div class="home_content">
     <PopularSeriesList />
-    <!-- <JustRelease /> -->
+    <JustRelease />
     <!-- <WatchList v-if="isLoggedIn" /> -->
     <!-- <Likes v-if="isLoggedIn" /> -->
     <!-- <Action /> -->

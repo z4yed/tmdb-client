@@ -150,6 +150,64 @@ $root: ".series_card";
       cursor: pointer;
     }
   }
+
+  @include respond-to("<medium") {
+    width: 220px;
+    height: 340px;
+    position: relative;
+
+    &__thumbnail {
+      position: absolute;
+      z-index: 1;
+      height: 100%;
+
+      img {
+        width: 220px;
+        height: 340px;
+        object-fit: cover;
+        border-radius: 16px;
+        cursor: pointer;
+      }
+    }
+
+    &__description {
+      overflow: hidden;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      display: flex;
+      width: 280px;
+      height: 116px;
+      padding: 20px;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-start;
+      gap: 4px;
+      z-index: 2;
+
+      border-radius: 0px 0px 16px 16px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 78.02%);
+
+      &-title {
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 24px; /* 150% */
+      }
+    }
+
+    &__favourite {
+      position: absolute;
+      z-index: 4;
+      top: 20px;
+      right: 20px;
+
+      img {
+        cursor: pointer;
+      }
+    }
+  }
 }
 
 .compact {

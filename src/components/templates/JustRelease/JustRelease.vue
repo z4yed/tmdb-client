@@ -116,5 +116,26 @@ export default {
     @extend .right_navigation;
     height: 412px;
   }
+
+  @include respond-to("<medium") {
+    padding-top: 30px;
+
+    &__title {
+      font-size: 22px;
+    }
+
+    &__series {
+      margin-top: 18px;
+
+      .swiper-slide {
+        width: unset;
+      }
+    }
+
+    .right_navigation {
+      @extend .right_navigation;
+      height: 340px;
+    }
+  }
 }
 </style>
