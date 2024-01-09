@@ -137,11 +137,11 @@ export default {
 
   @include respond-to("<medium") {
     height: 134px;
-    gap: 8px;
+    gap: 12px;
 
     &__index {
       text-align: center;
-      font-size: 36px;
+      font-size: 22px;
     }
 
     &__info {

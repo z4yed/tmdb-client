@@ -123,7 +123,7 @@ export default {
     padding-top: 30px;
 
     &__title {
-      font-size: 18px;
+      font-size: 22px;
     }
 
     &__series {
