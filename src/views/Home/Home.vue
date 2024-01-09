@@ -4,8 +4,8 @@
     <PopularSeriesList />
     <JustRelease />
     <WatchList v-if="isLoggedIn" />
-    <!-- <Likes v-if="isLoggedIn" /> -->
-    <!-- <Action /> -->
+    <Likes v-if="isLoggedIn" />
+    <Action />
   </div>
 </template>
 
