@@ -100,6 +100,8 @@ export default {
   @include respond-to("<medium") {
     position: relative;
 
+    padding-top: 30px;
+
     &__title {
       font-size: 22px;
     }

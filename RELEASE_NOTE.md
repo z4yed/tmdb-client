@@ -35,6 +35,8 @@
 - BEM naming convension for class names.
 - Using `.env` to keep secret values.
 - Separate constant file to manage constant values.
+- Making common css files available to all components throw the `config` files so that it reduces hassles of importing again and again.
+- Changes tracked through GitHub pull requests.
 
 ## Known issues and future works
 
@@ -62,5 +64,6 @@ API Reference URLs:
 
 - All the API calls is done from `my own tmdb user account` programmatically using the `access token` that is given by `tmdb`. Hense exposing the site to public is might be a risk for my account.
 
---
+---
+
 &copy; [Md Zayed Hassan](https://z4yed.netlify.app)
