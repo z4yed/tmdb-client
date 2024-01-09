@@ -2,10 +2,10 @@
   <Header />
   <div class="home_content">
     <PopularSeriesList />
-    <JustRelease />
-    <WatchList v-if="isLoggedIn" />
-    <Likes v-if="isLoggedIn" />
-    <Action />
+    <!-- <JustRelease /> -->
+    <!-- <WatchList v-if="isLoggedIn" /> -->
+    <!-- <Likes v-if="isLoggedIn" /> -->
+    <!-- <Action /> -->
   </div>
 </template>
 

@@ -275,5 +275,9 @@ export default {
       }
     }
   }
+
+  @include respond-to("<medium") {
+    display: none;
+  }
 }
 </style>

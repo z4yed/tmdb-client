@@ -118,5 +118,9 @@ export default {
     @extend .right_navigation;
     height: 130px;
   }
+
+  @include respond-to("<medium") {
+    display: none;
+  }
 }
 </style>
