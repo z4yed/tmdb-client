@@ -93,5 +93,17 @@ export default {
     @extend .right_navigation;
     height: 256px;
   }
+
+  @include respond-to("<medium") {
+    padding-top: 30px;
+
+    &__title {
+      font-size: 22px;
+    }
+
+    &__series {
+      margin-top: 18px;
+    }
+  }
 }
 </style>

@@ -7,7 +7,10 @@
       <div class="hero__description-season">
         <span>{{ series.adult ? "Adult" : "All ages" }}</span>
       </div>
-      <div class="hero__description-title">
+      <div
+        class="hero__description-title"
+        @click="navigateToDetails(series.id)"
+      >
         <h2>
           {{ series.name }}
         </h2>
@@ -16,7 +19,7 @@
         <span> {{ isDetailsPage ? genresForDetailsPage : genres }}</span>
       </div>
       <div class="hero__description-details">
-        <p>
+        <p @click="navigateToDetails(series.id)">
           {{ series.overview }}
         </p>
       </div>
@@ -32,7 +35,11 @@
       </div>
     </div>
 
-    <div class="hero__description" v-if="isDetailsPage">
+    <div
+      class="hero__description"
+      v-if="isDetailsPage"
+      :class="isDetailsPage ? 'hero__description-details-page' : ''"
+    >
       <div class="hero__description-season">
         <span>{{ series.adult ? "Adult" : "All ages" }}</span>
       </div>
@@ -44,7 +51,7 @@
       </div>
 
       <div class="hero__description-actions__details" v-if="isDetailsPage">
-        <div>
+        <div class="left">
           <Button imageSource="play.png" text="Continue Watching" />
           <Button
             :imageSource="isInWatchList ? 'bookmark_fill.svg' : 'bookmark.svg'"
@@ -52,7 +59,7 @@
             @click="modifyWatchList(isInWatchList ? false : true)"
           />
         </div>
-        <div>
+        <div class="right">
           <Button imageSource="download.png" text="Download" />
           <Button imageSource="share.png" text="Share" />
           <Button
@@ -292,6 +299,83 @@ export default {
       rgba(13, 12, 15, 0.28) 70.66%,
       #0d0c0f 103.18%
     );
+  }
+
+  @include respond-to("<medium") {
+    &__description {
+      position: absolute;
+      left: 20px;
+      bottom: 50px;
+      right: 20px;
+      z-index: 3;
+
+      &-season {
+        span {
+          border-radius: 8px;
+          padding: 8px 12px;
+          font-size: 8px;
+        }
+      }
+
+      &-title {
+        margin-top: 16px;
+        h2 {
+          font-size: 24px;
+          line-height: 30px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+
+      &-others {
+        margin-top: 6px;
+        span {
+          font-size: 12px;
+        }
+      }
+
+      &-details {
+        margin-top: 8px;
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+
+        p {
+          max-width: 100%;
+          font-size: 12px;
+          line-height: 20px;
+        }
+      }
+
+      &-actions {
+        margin-top: 16px;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      &-actions__details {
+        padding: 0 20px;
+        margin-top: 18px;
+        display: unset;
+
+        div {
+          display: flex;
+          gap: 8px;
+          align-items: center;
+        }
+
+        .right {
+          margin-top: 8px;
+        }
+      }
+    }
+
+    &__description-details-page {
+      bottom: 12px;
+    }
   }
 }
 </style>

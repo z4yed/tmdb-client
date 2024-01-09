@@ -116,4 +116,18 @@ export default {
     }
   }
 }
+
+@include respond-to("<medium") {
+  .header {
+    min-height: 500px;
+  }
+
+  .wrapper {
+    .swiper-pagination {
+      bottom: 20px;
+      text-align: center;
+      padding: 0 20px;
+    }
+  }
+}
 </style>

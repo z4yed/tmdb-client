@@ -138,4 +138,18 @@ export default {
     }
   }
 }
+
+@include respond-to("<medium") {
+  .details_header {
+    min-height: 500px;
+  }
+
+  .details_content {
+    padding-left: 20px;
+
+    &__story {
+      padding: 20px;
+    }
+  }
+}
 </style>
