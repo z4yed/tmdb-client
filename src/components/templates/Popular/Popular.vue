@@ -120,7 +120,24 @@ export default {
   }
 
   @include respond-to("<medium") {
-    display: none;
+    padding-top: 30px;
+
+    &__title {
+      font-size: 18px;
+    }
+
+    &__series {
+      margin-top: 18px;
+
+      .swiper-slide {
+        width: unset;
+      }
+    }
+
+    .right_navigation {
+      @extend .right_navigation;
+      height: 130px;
+    }
   }
 }
 </style>

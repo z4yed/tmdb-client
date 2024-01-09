@@ -48,5 +48,9 @@ export default {
   color: $color-white-solid;
   background: $color-black-solid;
   padding-left: 75px;
+
+  @include respond-to("<medium") {
+    padding-left: 20px;
+  }
 }
 </style>

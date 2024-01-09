@@ -119,7 +119,7 @@ export default {
     &__title {
       font-family: Rubik;
       overflow: hidden;
-      color: var(--White, #fff);
+      color: $color-white-solid;
       text-overflow: ellipsis;
       white-space: nowrap;
       font-size: 16px;
@@ -132,6 +132,45 @@ export default {
       display: flex;
       align-items: center;
       gap: 4px;
+    }
+  }
+
+  @include respond-to("<medium") {
+    height: 134px;
+    gap: 8px;
+
+    &__index {
+      text-align: center;
+      font-size: 36px;
+    }
+
+    &__info {
+      height: 100%;
+      max-width: 181px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+
+      &__tag {
+        span {
+          padding: 2px 8px;
+        }
+      }
+
+      &__title {
+        font-family: Rubik;
+        overflow: hidden;
+        color: $color-white-solid;
+        font-size: 14px;
+        line-height: 16px;
+      }
+
+      &__genres {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
     }
   }
 }
