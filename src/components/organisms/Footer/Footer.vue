@@ -68,5 +68,39 @@ export default {};
     line-height: 22px;
     opacity: 0.7;
   }
+
+  @include respond-to("<medium") {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 20px;
+    gap: 20px;
+
+    &__left {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+
+      li a {
+        font-size: 13px;
+      }
+    }
+
+    &__social {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    &__copyright {
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 22px;
+      opacity: 0.7;
+    }
+  }
 }
 </style>

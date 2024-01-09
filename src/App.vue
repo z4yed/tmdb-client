@@ -1,7 +1,7 @@
 <template>
   <router-view />
   <div class="app_footer">
-    <!-- <Footer /> -->
+    <Footer />
   </div>
 </template>
 
@@ -50,5 +50,11 @@ export default {
   color: $color-white-solid;
   background: $color-black-solid;
   padding-left: 75px;
+
+  @include respond-to("<medium") {
+    color: $color-white-solid;
+    background: $color-black-solid;
+    padding-left: 20px;
+  }
 }
 </style>
