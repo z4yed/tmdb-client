@@ -137,6 +137,16 @@ $root: ".series_card";
       font-style: normal;
       font-weight: 700;
       line-height: 24px; /* 150% */
+
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    &-ratings {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
     }
   }
 
@@ -230,6 +240,28 @@ $root: ".series_card";
     height: unset;
     width: unset;
     padding: 0;
+  }
+
+  @include respond-to("<medium") {
+    height: unset;
+    width: unset;
+
+    #{$root}__thumbnail {
+      position: unset;
+      img {
+        width: 220px;
+        object-fit: fill;
+      }
+    }
+
+    #{$root}__description {
+      max-width: 220px;
+      margin-top: 12px;
+      position: unset;
+      height: unset;
+      width: unset;
+      padding: 0;
+    }
   }
 }
 </style>
