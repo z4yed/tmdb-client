@@ -102,7 +102,7 @@ export default {
   setup() {
     const store = useStore();
     const showProfileDetails = ref(false);
-    const isMenuOpen = ref(true);
+    const isMenuOpen = ref(false);
 
     const isLoggedIn = computed(() => {
       return store.getters.isLoggedIn;
