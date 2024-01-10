@@ -56,11 +56,7 @@
             @click="toggleProfileDetailsSection"
           />
         </div>
-        <div
-          class="nav__right-login"
-          v-if="!isLoggedIn"
-          :class="highlightLogin ? 'nav__right-login__highlight' : ''"
-        >
+        <div class="nav__right-login" v-if="!isLoggedIn">
           <GoogleLogin :callback="handleGoogleLogin" />
         </div>
         <div
@@ -115,19 +111,6 @@ export default {
       isMenuOpen.value = !isMenuOpen.value;
     };
 
-    const highlightLogin = computed(() => {
-      return store.state.highlightLogin;
-    });
-
-    watch(
-      () => store.state.highlightLogin,
-      function (current) {
-        if (current) {
-          store.dispatch("hideLoginHighlight");
-        }
-      }
-    );
-
     const authUser = computed(() => {
       return store.state.user;
     });
@@ -163,7 +146,6 @@ export default {
       showProfileDetails,
       toggleProfileDetailsSection,
       handleLogout,
-      highlightLogin,
       toggleCheckStatus,
       isMenuOpen,
     };
@@ -268,11 +250,6 @@ $root: ".nav";
 
       &-login {
         padding: 2px;
-        &__highlight {
-          position: relative;
-          border: 2px solid #ff1e00;
-          border-radius: 8px;
-        }
       }
 
       &-profile__details {

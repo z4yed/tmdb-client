@@ -4,7 +4,6 @@ import makeApiCall from "@/utils/apiClient";
 export const store = createStore({
   state: {
     user: null,
-    highlightLogin: false,
     genres: [],
     favoriteList: [],
     watchList: [],
@@ -45,9 +44,6 @@ export const store = createStore({
       state.favoriteList = [];
       state.watchList = [];
       state.user = null;
-    },
-    highLightLogin: (state) => {
-      state.highlightLogin = !state.highlightLogin;
     },
     setGenres: (state, payload) => {
       state.genres = payload;
@@ -175,11 +171,6 @@ export const store = createStore({
           context.commit("removeFromWatchList", payload.series);
         }
       }
-    },
-    hideLoginHighlight: (context) => {
-      setTimeout(() => {
-        context.commit("highLightLogin");
-      }, 1500);
     },
   },
 });
