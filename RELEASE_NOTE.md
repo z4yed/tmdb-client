@@ -1,4 +1,4 @@
-# The Movie Central : Release_v1
+# The Movie Central : Release Note
 
 ## Live Link
 
@@ -28,11 +28,15 @@
 - Not diplaying Watchlist and Liked series slider in the home page for unauthenticated users.
 - Authenticated users can mark series to `Watchlist` or `Liked List` and this options are not available to the guest users.
 - `Watchlist` and `Liked List` are synced on the `TMDB` database instantly. Upon page refresh the data remains updated.
+- Mobile responsiveness added
+- Search Functionality implemented with a new page.
+- 404 page added for invalid routes
+- Toastify added to display general messages
 
 ## Best practice followed
 
 - Creating and using `Reusable` components.
-- BEM naming convension for class names.
+- BEM naming convention for class names.
 - Using `.env` to keep secret values.
 - Separate constant file to manage constant values.
 - Making common css files available to all components throw the `config` files so that it reduces hassles of importing again and again.
@@ -40,8 +44,7 @@
 
 ## Known issues and future works
 
-- Making it responsive for mobile and tablets.
-- Search functionality once the design is given.
+- Making it responsive for tablets.
 - Making `Vuex` modular instead of writing all login in a single file.
 - Browser compatibility is not tested hence some of the css might get broken in some browser.
 - There are some hardcoded values that can be moved in a constant file.
@@ -59,10 +62,11 @@ API Reference URLs:
 - https://developer.themoviedb.org/reference/tv-series-similar
 - https://developer.themoviedb.org/reference/account-add-favorite
 - https://developer.themoviedb.org/reference/account-add-to-watchlist
+- https://developer.themoviedb.org/reference/search-tv
 
 ## Risk factors
 
-- All the API calls is done from `my own tmdb user account` programmatically using the `access token` that is given by `tmdb`. Hense exposing the site to public is might be a risk for my account.
+- All the API calls is done from `my own tmdb user account` programmatically using the `access token` that is given by `tmdb`. Hence exposing the site to public is might be a risk for my account.
 
 ---
 
