@@ -1,5 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
-import { Home, SeriesDetails, Search } from "@/views/index.js";
+import { Home, SeriesDetails, Search, NotFound } from "@/views/index.js";
 
 const routes = [
   {
@@ -18,6 +18,11 @@ const routes = [
     name: "Search",
     component: Search,
     props: true,
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: NotFound,
   },
 ];
 
