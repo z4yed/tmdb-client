@@ -1,6 +1,9 @@
 <template>
   <div class="nav" :class="isMenuOpen ? 'mobile-menu-open' : ''">
-    <div class="nav__left" :class="isMenuOpen ? 'bg-solid' : 'bg-transparent'">
+    <div
+      class="nav__left"
+      :class="isMenuOpen ? 'nav__bg-solid' : 'nav__bg-transparent'"
+    >
       <router-link to="/"> TheMovieCentral </router-link>
     </div>
     <div class="nav__actions">
@@ -344,6 +347,14 @@ $root: ".nav";
     display: flex;
     flex-direction: column;
 
+    &__bg-transparent {
+      background: transparent;
+    }
+
+    &__bg-solid {
+      background-color: hsla(172, 80%, 16%, 0.938);
+    }
+
     &__left {
       padding: 30px 20px;
       height: 90px;
@@ -373,34 +384,36 @@ $root: ".nav";
 }
 
 .mobile-menu-open {
-  position: relative;
-  flex-direction: column;
-
-  #{$root}__actions {
-    position: absolute;
-    min-height: 70vh;
-    width: 100vw;
-    background: $color-black-700;
-
-    top: 90px;
-
-    display: flex;
+  @include respond-to("<medium") {
+    position: relative;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 40px 0;
 
-    #{$root}__links {
-      display: block;
-      width: 100%;
+    #{$root}__actions {
+      position: absolute;
+      min-height: 70vh;
+      width: 100vw;
+      background: $color-black-700;
 
-      ul {
-        flex-direction: column;
-      }
-    }
+      top: 90px;
 
-    #{$root}__right {
-      position: relative;
       display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 40px 0;
+
+      #{$root}__links {
+        display: block;
+        width: 100%;
+
+        ul {
+          flex-direction: column;
+        }
+      }
+
+      #{$root}__right {
+        position: relative;
+        display: flex;
+      }
     }
   }
 }
