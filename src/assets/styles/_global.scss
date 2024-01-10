@@ -1,8 +1,6 @@
 * {
   color: #fff;
   font-family: Rubik;
-
-  border: 1px solid red;
 }
 
 .right_navigation {
@@ -31,4 +29,12 @@
     background: $color-black-700;
     padding: 6px;
   }
+}
+
+.bg-transparent {
+  background: transparent;
+}
+
+.bg-solid {
+  background-color: $color-green;
 }
