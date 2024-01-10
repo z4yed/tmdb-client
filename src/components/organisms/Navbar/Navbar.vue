@@ -1,12 +1,15 @@
 <template>
-  <div class="nav" :class="isMenuOpen ? 'mobile-menu-open' : ''">
+  <div
+    class="nav"
+    :class="[isMenuOpen ? 'mobile-menu-open' : '', solidBg ? 'nav__solid' : '']"
+  >
     <div
       class="nav__left"
       :class="isMenuOpen ? 'nav__bg-solid' : 'nav__bg-transparent'"
     >
       <router-link to="/"> TheMovieCentral </router-link>
     </div>
-    <div class="nav__actions">
+    <div class="nav__actions" :class="solidBg ? 'solid-bg' : ''">
       <div class="nav__links">
         <ul>
           <li>
@@ -33,7 +36,14 @@
       </div>
       <div class="nav__right">
         <div class="nav__right-search">
-          <img src="../../../assets/images/icons/search.png" alt="" />
+          <form @submit="searchHandler">
+            <input type="text" v-model="searchKeyword" />
+            <img
+              src="../../../assets/images/icons/search.png"
+              alt=""
+              @click="searchHandler"
+            />
+          </form>
         </div>
         <div class="nav__right-notification">
           <img src="../../../assets/images/icons/bell.png" alt="" />
@@ -95,13 +105,22 @@
 import { decodeCredential } from "vue3-google-login";
 import { googleLogout } from "vue3-google-login";
 import { useStore } from "vuex";
-import { computed, ref, watch } from "vue";
+import { computed, ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default {
+  props: {
+    solidBg: {
+      type: Boolean,
+      required: false,
+    },
+  },
   setup() {
     const store = useStore();
     const showProfileDetails = ref(false);
     const isMenuOpen = ref(false);
+    const searchKeyword = ref("");
+    const router = useRouter();
 
     const isLoggedIn = computed(() => {
       return store.getters.isLoggedIn;
@@ -114,6 +133,19 @@ export default {
     const authUser = computed(() => {
       return store.state.user;
     });
+
+    const searchHandler = (e) => {
+      e.preventDefault();
+
+      if (searchKeyword) {
+        router.push({
+          name: "Search",
+          query: {
+            keyword: searchKeyword.value,
+          },
+        });
+      }
+    };
 
     const toggleProfileDetailsSection = () => {
       showProfileDetails.value = !showProfileDetails.value;
@@ -148,6 +180,8 @@ export default {
       handleLogout,
       toggleCheckStatus,
       isMenuOpen,
+      searchKeyword,
+      searchHandler,
     };
   },
 };
@@ -219,6 +253,32 @@ $root: ".nav";
       display: flex;
       gap: 23px;
       position: relative;
+
+      &-search {
+        form {
+          position: relative;
+          input {
+            max-width: 150px;
+            color: $color-black-solid;
+            padding: 8px 40px 8px 8px;
+            outline: none;
+            border: 0.5px solid $color-gray;
+            border-radius: 8px;
+          }
+
+          img {
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+            height: 33px;
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+            padding: 5px;
+            background: $color-gray;
+            cursor: pointer;
+          }
+        }
+      }
 
       > div {
         display: flex;
@@ -394,8 +454,19 @@ $root: ".nav";
       #{$root}__right {
         position: relative;
         display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        &-search {
+          flex-basis: 1;
+        }
       }
     }
   }
+}
+
+#{$root}__solid {
+  background-color: hsla(172, 80%, 16%, 0.938);
+  position: relative;
 }
 </style>
