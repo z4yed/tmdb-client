@@ -36,7 +36,7 @@ export default {
     Navbar,
     SeriesCard,
   },
-  setup(props) {
+  setup() {
     const searchResult = ref([]);
     const route = useRoute();
     const keyword = ref("");

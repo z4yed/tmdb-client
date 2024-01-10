@@ -23,10 +23,6 @@
               Movie Release
             </router-link>
           </li>
-
-          <li>
-            <router-link to="/" title="Forum"> Forum </router-link>
-          </li>
           <li>
             <router-link to="/" title="Your Favourite">
               Your Favourite
@@ -136,7 +132,7 @@ export default {
 
     const searchHandler = (e) => {
       e.preventDefault();
-
+      isMenuOpen.value = false;
       if (searchKeyword) {
         router.push({
           name: "Search",

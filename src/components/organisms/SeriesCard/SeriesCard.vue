@@ -205,6 +205,7 @@ $root: ".series_card";
         font-style: normal;
         font-weight: 700;
         line-height: 24px; /* 150% */
+        white-space: pre-wrap;
       }
     }
 

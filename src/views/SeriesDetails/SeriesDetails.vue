@@ -102,7 +102,7 @@ export default {
 <style lang="scss">
 .details_header {
   position: relative;
-  min-height: 648px;
+  min-height: 90vh;
 }
 
 .details_content {
