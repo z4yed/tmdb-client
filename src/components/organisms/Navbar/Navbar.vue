@@ -43,13 +43,17 @@
             :src="authUser.picture"
             class="nav__right-profile__photo"
             alt="pic"
-            @mouseenter="setShowProfileSection"
+            @click="toggleProfileDetailsSection"
           />
           <img
             src="../../../assets/images/icons/arrow_down.png"
-            class="nav__right-profile__arrow"
+            :class="
+              showProfileDetails
+                ? 'nav__right-profile__arrow-reverse'
+                : 'nav__right-profile__arrow'
+            "
             alt=""
-            @mouseenter="setShowProfileSection"
+            @click="toggleProfileDetailsSection"
           />
         </div>
         <div
@@ -62,7 +66,6 @@
         <div
           class="nav__right-profile__details"
           v-if="isLoggedIn && showProfileDetails"
-          @mouseleave="hideProfileSection"
         >
           <h3 class="name">Md. Zayed Hassan</h3>
           <p class="email">zayed.cs3@gmail.com</p>
@@ -129,12 +132,8 @@ export default {
       return store.state.user;
     });
 
-    const setShowProfileSection = () => {
-      showProfileDetails.value = true;
-    };
-
-    const hideProfileSection = () => {
-      showProfileDetails.value = false;
+    const toggleProfileDetailsSection = () => {
+      showProfileDetails.value = !showProfileDetails.value;
     };
 
     const handleGoogleLogin = (response) => {
@@ -162,8 +161,7 @@ export default {
       isLoggedIn,
       authUser,
       showProfileDetails,
-      setShowProfileSection,
-      hideProfileSection,
+      toggleProfileDetailsSection,
       handleLogout,
       highlightLogin,
       toggleCheckStatus,
@@ -258,7 +256,13 @@ $root: ".nav";
         }
 
         &__arrow {
-          cursor: pointer;
+          rotate: 0deg;
+          transition: rotate 0.3s ease-in-out;
+        }
+
+        &__arrow-reverse {
+          rotate: -180deg;
+          transition: rotate 0.3s ease-in-out;
         }
       }
 
