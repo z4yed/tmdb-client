@@ -23,10 +23,6 @@
               Movie Release
             </router-link>
           </li>
-
-          <li>
-            <router-link to="/" title="Forum"> Forum </router-link>
-          </li>
           <li>
             <router-link to="/" title="Your Favourite">
               Your Favourite
