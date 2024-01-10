@@ -34,6 +34,7 @@ import { Ratings } from "..";
 import { useStore } from "vuex";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
+import { toast } from "vue3-toastify";
 export default {
   props: {
     series: {
@@ -63,10 +64,10 @@ export default {
 
     const modifyFavoritesList = (status) => {
       if (Boolean(store.state.user)) {
+        toast.success(status ? "Added to favorites" : "Removed from favorites");
         store.dispatch("modifyFavorites", { series, status });
       } else {
-        window.scroll(0, 0);
-        store.commit("highLightLogin", true);
+        toast.info("Please login");
       }
     };
 

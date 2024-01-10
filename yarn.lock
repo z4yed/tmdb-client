@@ -5516,6 +5516,11 @@ vue3-google-login@^2.0.25:
   resolved "https://registry.yarnpkg.com/vue3-google-login/-/vue3-google-login-2.0.25.tgz#ee5dbd758a4ff658faab4f7faf1637423301df30"
   integrity sha512-b6EfYFF2KH1qSiiCKI9WmPB79GdXifPB8qOt48RRmo1F5h3UcigrrqzQCosjcRLcTqUpRQcZ9TeKYP4ZVroNHQ==
 
+vue3-toastify@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/vue3-toastify/-/vue3-toastify-0.2.1.tgz#d3999c9f29add53416b0bc23f3ede81cf724b654"
+  integrity sha512-u4i5LCu1q5qs4L4Kbjb4u8NipCS8ox1fCHQ6XFS62676xnA6Q/AJRpZEkAurTMp723LeH6eQX6k9+24bKf1T4Q==
+
 vue@^3.2.13:
   version "3.4.5"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.4.5.tgz#c08b9d903a20faaf4df7270bf2fa7487741b2294"

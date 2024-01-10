@@ -8,7 +8,7 @@
 <script>
 import { Footer } from "@/components/organisms";
 import { useStore } from "vuex";
-import { watch } from "vue";
+import { onMounted, watch } from "vue";
 
 export default {
   components: {
@@ -45,6 +45,7 @@ export default {
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
+@import "vue3-toastify/dist/index.css";
 
 .app_footer {
   color: $color-white-solid;

@@ -80,6 +80,7 @@ import { Button } from "../../molecules";
 import { useRouter } from "vue-router";
 import { computed } from "vue";
 import { useStore } from "vuex";
+import { toast } from "vue3-toastify";
 
 export default {
   props: {
@@ -127,9 +128,10 @@ export default {
 
     const modifyFavoritesList = (status) => {
       if (Boolean(store.state.user)) {
+        toast.success(status ? "Added to favorites" : "Removed from favorites");
         store.dispatch("modifyFavorites", { series, status });
       } else {
-        store.commit("highLightLogin", true);
+        toast.info("Please login");
       }
     };
 
@@ -139,9 +141,10 @@ export default {
 
     const modifyWatchList = (status) => {
       if (Boolean(store.state.user)) {
+        toast.success(status ? "Added to watchlist" : "Removed from watchlist");
         store.dispatch("modifyWatchList", { series, status });
       } else {
-        store.commit("highLightLogin", true);
+        toast.info("Please login");
       }
     };
 
