@@ -136,7 +136,7 @@ export default {
 
     const searchHandler = (e) => {
       e.preventDefault();
-
+      isMenuOpen.value = false;
       if (searchKeyword) {
         router.push({
           name: "Search",
