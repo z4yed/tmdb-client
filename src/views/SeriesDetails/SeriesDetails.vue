@@ -1,5 +1,5 @@
 <template>
-  <div class="details_header" v-if="series">
+  <div class="details_header">
     <Navbar />
     <Hero
       :isDetailsPage="true"
