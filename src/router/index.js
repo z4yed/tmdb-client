@@ -1,5 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
-import { Home, SeriesDetails } from "@/views/index.js";
+import { Home, SeriesDetails, Search } from "@/views/index.js";
 
 const routes = [
   {
@@ -11,6 +11,12 @@ const routes = [
     path: "/series/:id",
     name: "SeriesDetails",
     component: SeriesDetails,
+    props: true,
+  },
+  {
+    path: "/search",
+    name: "Search",
+    component: Search,
     props: true,
   },
 ];
