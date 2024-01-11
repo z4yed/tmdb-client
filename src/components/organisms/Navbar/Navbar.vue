@@ -69,8 +69,8 @@
           class="nav__right-profile__details"
           v-if="isLoggedIn && showProfileDetails"
         >
-          <h3 class="name">Md. Zayed Hassan</h3>
-          <p class="email">zayed.cs3@gmail.com</p>
+          <h3 class="name">{{ authUser.name }}</h3>
+          <p class="email">{{ authUser.email }}</p>
           <button class="logout" @click="handleLogout">Logout</button>
         </div>
       </div>
