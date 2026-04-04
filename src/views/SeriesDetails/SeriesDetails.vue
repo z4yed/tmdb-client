@@ -1,24 +1,28 @@
 <template>
-  <div class="details_header">
-    <Navbar />
-    <Hero
-      :isDetailsPage="true"
-      :series="series"
-      v-if="series"
-      :key="series.id"
-    />
+  <div v-if="loading" class="details_loading">
+    <div class="details_loading__spinner"></div>
   </div>
-  <div class="details_content" v-if="series">
-    <div class="details_content__story">
-      <h2 class="">Story Line</h2>
-      <p>
-        {{ series.overview }}
-        <!-- <span class="more"> More </span> -->
-      </p>
+  <template v-else>
+    <div class="details_header">
+      <Navbar />
+      <Hero
+        :isDetailsPage="true"
+        :series="series"
+        v-if="series"
+        :key="series.id"
+      />
     </div>
-    <TopCasts :casts="casts" v-if="casts.length" />
-    <Recommendation :seriesList="similarSeries" v-if="similarSeries.length" />
-  </div>
+    <div class="details_content" v-if="series">
+      <div class="details_content__story">
+        <h2 class="">Story Line</h2>
+        <p>
+          {{ series.overview }}
+        </p>
+      </div>
+      <TopCasts :casts="casts" v-if="casts.length" />
+      <Recommendation :seriesList="similarSeries" v-if="similarSeries.length" />
+    </div>
+  </template>
 </template>
 <script>
 import { Navbar, Hero } from "@/components/organisms";
@@ -45,37 +49,31 @@ export default {
     const series = ref(null);
     const casts = ref(null);
     const similarSeries = ref(null);
+    const loading = ref(true);
 
     const fetchData = async () => {
-      const detailsUrl =
-        process.env.VUE_APP_TMDB_API_BASE_URL + "/tv/" + props.id;
+      loading.value = true;
 
-      const creditsUrl =
-        process.env.VUE_APP_TMDB_API_BASE_URL + "/tv/" + props.id + "/credits";
-
-      const recommendationSeriesUrl =
-        process.env.VUE_APP_TMDB_API_BASE_URL + "/tv/" + props.id + "/similar";
-
+      const baseUrl = process.env.VUE_APP_TMDB_API_BASE_URL;
       const headers = {
         accept: "application/json",
         Authorization: `Bearer ${process.env.VUE_APP_TMDB_API_ACCESS_TOKEN}`,
       };
 
       try {
-        let seriesDetails = await makeApiCall(detailsUrl, "get", null, headers);
-        let seriesCasts = await makeApiCall(creditsUrl, "get", null, headers);
-        let recommendations = await makeApiCall(
-          recommendationSeriesUrl,
-          "get",
-          null,
-          headers
-        );
+        const [seriesDetails, seriesCasts, recommendations] = await Promise.all([
+          makeApiCall(`${baseUrl}/tv/${props.id}`, "get", null, headers),
+          makeApiCall(`${baseUrl}/tv/${props.id}/credits`, "get", null, headers),
+          makeApiCall(`${baseUrl}/tv/${props.id}/similar`, "get", null, headers),
+        ]);
 
         series.value = seriesDetails;
         casts.value = seriesCasts.cast;
         similarSeries.value = recommendations.results;
       } catch (err) {
         router.push({ name: "Home" });
+      } finally {
+        loading.value = false;
       }
     };
 
@@ -91,6 +89,7 @@ export default {
     onMounted(fetchData);
 
     return {
+      loading,
       series,
       casts,
       similarSeries,
@@ -100,9 +99,31 @@ export default {
 </script>
 
 <style lang="scss">
+.details_loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: $color-black-800;
+
+  &__spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba($color-white-solid, 0.15);
+    border-top-color: $color-white-solid;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 .details_header {
   position: relative;
-  min-height: 648px;
+  height: 70vh;
+  min-height: 500px;
 }
 
 .details_content {
@@ -141,7 +162,8 @@ export default {
 
 @include respond-to("<medium") {
   .details_header {
-    min-height: 500px;
+    height: 70vh;
+    min-height: 400px;
   }
 
   .details_content {
