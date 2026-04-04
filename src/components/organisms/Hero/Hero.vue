@@ -1,5 +1,5 @@
 <template>
-  <div class="hero">
+  <div class="hero" @click="navigateToDetails(series.id)">
     <div class="hero__background">
       <img :src="seriesBanner" alt="hero image" class="hero__background-img" />
     </div>
@@ -23,7 +23,7 @@
           {{ series.overview }}
         </p>
       </div>
-      <div class="hero__description-actions">
+      <div class="hero__description-actions" @click.stop>
         <Button imageSource="play.png" text="Play Now" />
         <Button imageSource="play.png" text="Watch Trailer" />
         <Button
@@ -50,7 +50,7 @@
         <span> {{ genresForDetailsPage() }}</span>
       </div>
 
-      <div class="hero__description-actions__details" v-if="isDetailsPage">
+      <div class="hero__description-actions__details" v-if="isDetailsPage" @click.stop>
         <div class="left">
           <Button imageSource="play.png" text="Continue Watching" />
           <Button
@@ -71,7 +71,11 @@
       </div>
     </div>
 
-    <div class="hero__overlay" @click="navigateToDetails(series.id)"></div>
+    <div class="hero__overlay"></div>
+
+    <div class="hero__scroll-indicator" @click.stop>
+      <span></span>
+    </div>
   </div>
 </template>
 
@@ -164,7 +168,7 @@ export default {
           series.number_of_episodes + " Episodes",
           ...series.genres.map((genre) => genre.name),
         ];
-        return output.map((value) => value).join(" • ");
+        return output.join(" • ");
       }
     };
 
@@ -202,7 +206,8 @@ export default {
 
     &-img {
       width: 100vw;
-      height: 648px;
+      height: 100vh;
+      min-height: 648px;
       object-fit: cover;
     }
   }
@@ -285,6 +290,47 @@ export default {
     }
   }
 
+  &__scroll-indicator {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: scrollBounce 2s ease-in-out infinite;
+
+    span {
+      display: block;
+      width: 20px;
+      height: 32px;
+      border: 2px solid rgba($color-white-solid, 0.5);
+      border-radius: 10px;
+
+      &::after {
+        content: "";
+        display: block;
+        width: 4px;
+        height: 8px;
+        background: rgba($color-white-solid, 0.7);
+        border-radius: 2px;
+        margin: 6px auto 0;
+        animation: scrollDot 2s ease-in-out infinite;
+      }
+    }
+  }
+
+  @keyframes scrollBounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  @keyframes scrollDot {
+    0%, 100% { opacity: 0.4; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(6px); }
+  }
+
   &__overlay {
     position: absolute;
     bottom: 0;
@@ -293,35 +339,37 @@ export default {
     z-index: 2;
     height: 100%;
     cursor: pointer;
+    pointer-events: none;
 
     background: linear-gradient(
       359deg,
-      #0d0c0f 0.83%,
-      rgba(13, 12, 15, 0.85) 28.55%,
-      rgba(13, 12, 15, 0.26) 57.53%,
-      rgba(13, 12, 15, 0.28) 70.66%,
-      #0d0c0f 103.18%
+      $color-black-800 0.83%,
+      rgba($color-black-800, 0.85) 28.55%,
+      rgba($color-black-800, 0.26) 57.53%,
+      rgba($color-black-800, 0.28) 70.66%,
+      $color-black-800 103.18%
     );
   }
 
   @include respond-to("<medium") {
+    &__scroll-indicator {
+      display: none;
+    }
+
     &__description {
-      position: absolute;
       left: 20px;
       bottom: 50px;
       right: 20px;
-      z-index: 3;
 
-      &-season {
-        span {
-          border-radius: 8px;
-          padding: 8px 12px;
-          font-size: 8px;
-        }
+      &-season span {
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-size: 8px;
       }
 
       &-title {
         margin-top: 16px;
+
         h2 {
           font-size: 24px;
           line-height: 30px;
@@ -331,18 +379,12 @@ export default {
         }
       }
 
-      &-others {
-        margin-top: 6px;
-        span {
-          font-size: 12px;
-        }
+      &-others span {
+        font-size: 12px;
       }
 
       &-details {
-        margin-top: 8px;
         display: -webkit-box;
-        overflow: hidden;
-        text-overflow: ellipsis;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
 
@@ -365,9 +407,7 @@ export default {
         display: unset;
 
         div {
-          display: flex;
           gap: 8px;
-          align-items: center;
         }
 
         .right {

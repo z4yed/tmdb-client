@@ -87,6 +87,7 @@ export default {
 .header {
   position: relative;
   min-height: 648px;
+  height: 100vh;
 }
 
 .wrapper {

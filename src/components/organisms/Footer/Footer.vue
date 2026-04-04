@@ -26,7 +26,16 @@
         <img src="../../../assets/images/icons/social/Google.png" alt="" />
       </a>
     </div>
-    <div class="footer__copyright">&copy; 2023</div>
+    <div class="footer__copyright">
+      &copy; {{ new Date().getFullYear() }} | Developed by
+      <a
+        href="https://zayed-hassan.dev"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="footer__developer-link"
+        >Zayed Hassan</a
+      >
+    </div>
   </div>
 </template>
 
@@ -67,6 +76,15 @@ export default {};
     font-weight: 400;
     line-height: 22px;
     opacity: 0.7;
+  }
+
+  &__developer-link {
+    opacity: 1;
+    text-decoration: underline;
+
+    &:hover {
+      opacity: 0.8;
+    }
   }
 
   @include respond-to("<medium") {
