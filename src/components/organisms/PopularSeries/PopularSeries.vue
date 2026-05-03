@@ -135,6 +135,12 @@ export default {
     }
   }
 
+  @include respond-to(">=medium", "<large") {
+    &__index {
+      font-size: 36px;
+    }
+  }
+
   @include respond-to("<medium") {
     height: 134px;
     gap: 12px;

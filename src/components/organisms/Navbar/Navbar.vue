@@ -7,7 +7,7 @@
       class="nav__left"
       :class="isMenuOpen ? 'nav__bg-solid' : 'nav__bg-transparent'"
     >
-      <router-link to="/"> TheMovieCentral </router-link>
+      <router-link to="/"> MovieCentral </router-link>
     </div>
     <div class="nav__actions" :class="solidBg ? 'solid-bg' : ''">
       <div class="nav__links">
@@ -33,7 +33,11 @@
       <div class="nav__right">
         <div class="nav__right-search">
           <form @submit="searchHandler">
-            <input type="text" v-model="searchKeyword" />
+            <input
+              type="text"
+              v-model="searchKeyword"
+              placeholder="Search..."
+            />
             <img
               src="../../../assets/images/icons/search.png"
               alt=""
@@ -374,6 +378,34 @@ $root: ".nav";
       top: 0;
       bottom: 0;
       opacity: 0;
+    }
+  }
+
+  @include respond-to("<xxlarge") {
+    #{$root}__links ul li:last-child {
+      display: none;
+    }
+  }
+
+  @include respond-to("<xlarge") {
+    #{$root}__links ul li:nth-child(3) {
+      display: none;
+    }
+  }
+
+  @include respond-to("<large") {
+    #{$root}__links {
+      display: none;
+    }
+  }
+
+  @include respond-to(">=medium", "<large") {
+    padding: 24px 40px;
+
+    &__left {
+      a {
+        font-size: 26px;
+      }
     }
   }
 

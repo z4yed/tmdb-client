@@ -351,6 +351,22 @@ export default {
     );
   }
 
+  @include respond-to(">=medium", "<large") {
+    &__description {
+      left: 40px;
+      bottom: 50px;
+
+      &-title h2 {
+        font-size: 28px;
+        line-height: 36px;
+      }
+
+      &-actions__details {
+        padding-right: 40px;
+      }
+    }
+  }
+
   @include respond-to("<medium") {
     &__scroll-indicator {
       display: none;

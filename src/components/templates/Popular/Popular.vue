@@ -119,6 +119,10 @@ export default {
     height: 130px;
   }
 
+  @include respond-to(">=medium", "<large") {
+    padding-top: 50px;
+  }
+
   @include respond-to("<medium") {
     padding-top: 30px;
 

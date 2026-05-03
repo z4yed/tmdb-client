@@ -88,6 +88,7 @@ export default {
   position: relative;
   min-height: 648px;
   height: 100vh;
+  overflow: hidden;
 }
 
 .wrapper {
@@ -96,6 +97,7 @@ export default {
   left: 0;
   top: 0;
   right: 0;
+  overflow: hidden;
 
   .swiper-wrapper {
     position: absolute;
@@ -114,6 +116,19 @@ export default {
     .swiper-pagination-bullet-active {
       background: $color-white-solid;
       opacity: 1;
+    }
+  }
+}
+
+@include respond-to(">=medium", "<large") {
+  .header {
+    min-height: 580px;
+  }
+
+  .wrapper {
+    .swiper-pagination {
+      bottom: 50px;
+      padding-right: 50px;
     }
   }
 }

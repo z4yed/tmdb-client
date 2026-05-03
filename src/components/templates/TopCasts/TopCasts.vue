@@ -97,6 +97,10 @@ export default {
     height: 52px;
   }
 
+  @include respond-to(">=medium", "<large") {
+    padding-top: 50px;
+  }
+
   @include respond-to("<medium") {
     position: relative;
 

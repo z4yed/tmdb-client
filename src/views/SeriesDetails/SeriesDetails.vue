@@ -160,6 +160,16 @@ export default {
   }
 }
 
+@include respond-to(">=medium", "<large") {
+  .details_content {
+    padding-left: 40px;
+
+    &__story {
+      padding: 0 40px;
+    }
+  }
+}
+
 @include respond-to("<medium") {
   .details_header {
     height: 70vh;

@@ -87,6 +87,19 @@ export default {};
     }
   }
 
+  @include respond-to(">=medium", "<large") {
+    padding: 60px 40px 30px 0;
+    gap: 20px;
+
+    &__left {
+      gap: 16px;
+    }
+
+    &__social {
+      gap: 24px;
+    }
+  }
+
   @include respond-to("<medium") {
     display: flex;
     flex-direction: column;
